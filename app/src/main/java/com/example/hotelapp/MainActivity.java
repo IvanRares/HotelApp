@@ -1,52 +1,35 @@
 package com.example.hotelapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import com.example.hotelapp.access_objects.UserDao;
+import com.example.hotelapp.entities.User;
 
 public class MainActivity extends AppCompatActivity {
 
-    Connection connect;
-    String ConnectionResult="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        final Button button=findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TextView tx1 =findViewById(R.id.textView);
+                System.out.println("Here");
+            AppDatabase db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "HotelDb.db").allowMainThreadQueries().build();
+            System.out.println(getDatabasePath("HotelDb.db").getAbsolutePath());
+            UserDao userDao = db.userDao();
+            User user = userDao.findByUsernameAndPassword("rares", "rares");
+            tx1.setText(user.getUserId() + user.getTypeId() + user.getUsername() + user.getPassword());
+            }
+        });
     }
 
-    public void GetTextFromSql(View v)
-    {
-        TextView tx1=(TextView) findViewById(R.id.textView);
-
-        try{
-            ConnectionHelper connectionHelper=new ConnectionHelper();
-            connect=connectionHelper.connectionClass();
-            if(connect!=null){
-                String query="Select * from Users where Username='rares'";
-                Statement st=connect.createStatement();
-                ResultSet rs=st.executeQuery(query);
-                String result="";
-                while(rs.next()){
-                    result+=rs.getString(1);
-                    result+=rs.getString(2);
-                    result+=rs.getString(3);
-                    result+=rs.getString(4);
-                }
-                System.out.println(result);
-                tx1.setText(result);
-            }
-            else{
-                ConnectionResult="Check Connection";
-            }
-        }
-        catch (Exception ex){
-            System.out.println(ex.getMessage());
-        }
-    }
 }
