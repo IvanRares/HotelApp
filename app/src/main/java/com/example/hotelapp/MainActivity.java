@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 TextView tx1 = findViewById(R.id.textView);
                 System.out.println("Here");
-                AppDatabase db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "HotelDb.db").allowMainThreadQueries().build();
+                AppDatabase db = DatabaseCopier.getInstance(getApplicationContext()).getRoomDatabase();
                 System.out.println(getDatabasePath("HotelDb.db").getAbsolutePath());
                 UserDao userDao = db.userDao();
                 User user = userDao.findByUsernameAndPassword("rares", "rares");
