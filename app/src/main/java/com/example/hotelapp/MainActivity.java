@@ -17,17 +17,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final Button button=findViewById(R.id.button);
+        final Button button = findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextView tx1 =findViewById(R.id.textView);
+                TextView tx1 = findViewById(R.id.textView);
                 System.out.println("Here");
-            AppDatabase db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "HotelDb.db").allowMainThreadQueries().build();
-            System.out.println(getDatabasePath("HotelDb.db").getAbsolutePath());
-            UserDao userDao = db.userDao();
-            User user = userDao.findByUsernameAndPassword("rares", "rares");
-            tx1.setText(user.getUserId() + user.getTypeId() + user.getUsername() + user.getPassword());
+                AppDatabase db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "HotelDb.db").allowMainThreadQueries().build();
+                System.out.println(getDatabasePath("HotelDb.db").getAbsolutePath());
+                UserDao userDao = db.userDao();
+                User user = userDao.findByUsernameAndPassword("rares", "rares");
+                tx1.setText(user.getUserId() + user.getTypeId() + user.getUsername() + user.getPassword());
             }
         });
     }
