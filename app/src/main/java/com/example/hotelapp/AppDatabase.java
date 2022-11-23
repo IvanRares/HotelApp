@@ -15,7 +15,7 @@ import com.example.hotelapp.entities.UserType;
 
 import kotlin.jvm.JvmField;
 
-@Database(entities = {User.class, UserType.class}, version = 2)
+@Database(entities = {User.class, UserType.class,RoomType.class}, version = 2)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract UserDao userDao();
 
