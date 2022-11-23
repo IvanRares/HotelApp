@@ -14,7 +14,9 @@ import org.jetbrains.annotations.NotNull;
                         parentColumns = "RoomTypeId",
                         childColumns = "RoomTypeId",
                         onDelete = ForeignKey.CASCADE)
-        },indices = {@Index(name = "Rooms_IX_Rooms_RoomTypeId", value = "RoomTypeId", unique = false, orders = Index.Order.ASC)})
+        },indices = {
+        @Index(name = "Rooms_roomNameUnique",value = "RoomName",unique = true,orders = Index.Order.ASC),
+        @Index(name = "Rooms_IX_Rooms_RoomTypeId", value = "RoomTypeId", unique = false, orders = Index.Order.ASC)})
 public class Room {
     @PrimaryKey
     private int RoomId;
