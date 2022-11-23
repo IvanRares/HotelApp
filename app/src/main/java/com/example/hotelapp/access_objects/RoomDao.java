@@ -7,6 +7,6 @@ import com.example.hotelapp.entities.Room;
 
 @Dao
 public interface RoomDao {
-    @Query("SELECT * from Rooms WHERE RoomName Like:roomName LIMIT 1")
-    Room findByRoomName(String roomName);
+    @Query("SELECT * from Rooms LIMIT 1")
+    Room findByRoomName();
 }

@@ -24,18 +24,9 @@ import com.example.hotelapp.entities.UserType;
 
 import kotlin.jvm.JvmField;
 
-@Database(entities = {User.class, UserType.class,RoomType.class,State.class,Room.class, Amenity.class, AmenityBooking.class, Booking.class, BookingRoom.class, Image.class, Offer.class, Price.class}, version = 3)
+@Database(entities = {User.class, UserType.class,RoomType.class,State.class,Room.class, Amenity.class, AmenityBooking.class, Booking.class, BookingRoom.class, Image.class, Offer.class, Price.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract UserDao userDao();
     public abstract RoomTypeDao roomTypeDao();
     public abstract RoomDao roomDao();
-
-    @JvmField
-    static
-    Migration MIGRATION_1_2 = new Migration(2, 3) {
-        @Override
-        public void migrate(@NonNull SupportSQLiteDatabase database) {
-
-        }
-    };
 }

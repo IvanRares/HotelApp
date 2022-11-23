@@ -25,12 +25,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 TextView tx1 = findViewById(R.id.textView);
-                System.out.println("Here");
                 AppDatabase db = androidx.room.Room.databaseBuilder(getApplicationContext(),AppDatabase.class,"HotelDb.db").allowMainThreadQueries().build();
+                //AppDatabase db = databaseCopier.getDatabase();
                 System.out.println(getDatabasePath("HotelDb.db").getAbsolutePath());
-                RoomDao roomDao = db.roomDao();
-                Room room = roomDao.findByRoomName("1432");
-                tx1.setText(room.getRoomId()+room.getRoomTypeId()+room.getRoomName()+room.isActive());
+                UserDao userDao = db.userDao();
+                User user=userDao.findByUsernameAndPassword("rares","rares");
+                System.out.println(user.getUsername());
+//                RoomDao roomDao = db.roomDao();
+//                Room room = roomDao.findByRoomName();
+//                System.out.println(room);
+//                tx1.setText(room.getRoomId()+room.getRoomTypeId()+room.getRoomName()+room.isActive());
             }
         });
     }
