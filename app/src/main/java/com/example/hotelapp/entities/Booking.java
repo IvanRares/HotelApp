@@ -2,6 +2,8 @@ package com.example.hotelapp.entities;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import org.jetbrains.annotations.NotNull;
@@ -10,7 +12,13 @@ import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-@Entity(tableName = "Bookings")
+@Entity(tableName = "Bookings",
+        foreignKeys = {
+                @ForeignKey(entity = State.class,
+                        parentColumns = "StateId",
+                        childColumns = "StateId",
+                        onDelete = ForeignKey.CASCADE)
+        }, indices = {@Index(name = "States_IX_States_StateId", value = "StateId", unique = false, orders = Index.Order.ASC)})
 public class Booking {
     private static Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     @PrimaryKey
