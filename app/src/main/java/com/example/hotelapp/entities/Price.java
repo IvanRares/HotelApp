@@ -8,6 +8,8 @@ import androidx.room.PrimaryKey;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity(tableName = "Prices",
@@ -18,6 +20,7 @@ import java.util.Date;
                         onDelete = ForeignKey.CASCADE)
         },indices = {@Index(name = "Prices_IX_Prices_RoomTypeId", value = "RoomTypeId", unique = false, orders = Index.Order.ASC)})
 public class Price {
+    private static Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     @PrimaryKey
     private int PriceId;
 
@@ -26,11 +29,11 @@ public class Price {
 
     @ColumnInfo(name = "StardDate")
     @NotNull
-    private Date startDate;
+    private String startDate;
 
     @ColumnInfo(name = "EndDate")
     @NotNull
-    private Date endDate;
+    private String endDate;
 
     @ColumnInfo(name = "PriceValue")
     private float priceValue;
@@ -58,21 +61,21 @@ public class Price {
     }
 
     @NotNull
-    public Date getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
     public void setStartDate(@NotNull Date startDate) {
-        this.startDate = startDate;
+        this.startDate = formatter.format(startDate);
     }
 
     @NotNull
-    public Date getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
     public void setEndDate(@NotNull Date endDate) {
-        this.endDate = endDate;
+        this.endDate = formatter.format(endDate);
     }
 
     public float getPriceValue() {

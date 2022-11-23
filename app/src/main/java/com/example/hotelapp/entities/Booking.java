@@ -4,10 +4,15 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity(tableName = "Bookings")
 public class Booking {
+    private static Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     @PrimaryKey
     private int BookingId;
 
@@ -15,10 +20,12 @@ public class Booking {
     private int userId;
 
     @ColumnInfo(name = "StardDate")
-    private Date stardDate;
+    @NotNull
+    private String stardDate;
 
     @ColumnInfo(name = "EndDate")
-    private Date endDate;
+    @NotNull
+    private String endDate;
 
     @ColumnInfo(name = "TotalPrice")
     private float totalPrice;
@@ -45,20 +52,20 @@ public class Booking {
         this.userId = userId;
     }
 
-    public Date getStardDate() {
+    public String getStardDate() {
         return stardDate;
     }
 
     public void setStardDate(Date stardDate) {
-        this.stardDate = stardDate;
+        this.stardDate = formatter.format(stardDate);
     }
 
-    public Date getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
     public void setEndDate(Date endDate) {
-        this.endDate = endDate;
+        this.endDate = formatter.format(endDate);
     }
 
     public float getTotalPrice() {

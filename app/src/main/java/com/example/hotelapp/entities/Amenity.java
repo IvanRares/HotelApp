@@ -4,12 +4,15 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import org.jetbrains.annotations.NotNull;
+
 @Entity(tableName = "Amenities")
 public class Amenity {
     @PrimaryKey
     private int AmenityId;
 
     @ColumnInfo(name = "AmenityName")
+    @NotNull
     private String amenityName;
 
     @ColumnInfo(name = "Price")
