@@ -2,9 +2,25 @@ package com.example.hotelapp.entities;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "BookingRooms")
+@Entity(tableName = "BookingRooms",
+        foreignKeys = {
+                @ForeignKey(entity = Booking.class,
+                        parentColumns = "BookingId",
+                        childColumns = "BookingId",
+                        onDelete = ForeignKey.CASCADE),
+                @ForeignKey(entity = Room.class,
+                        parentColumns = "RoomId",
+                        childColumns = "RoomId",
+                        onDelete = ForeignKey.CASCADE)
+        },
+        indices = {
+                @Index(name = "BookingRooms_IX_BookingRooms_BookingId",value = "BookingId",unique = false,orders = Index.Order.ASC),
+                @Index(name = "BookingRooms_IX_BookingRooms_RoomId",value = "RoomId",unique = false,orders = Index.Order.ASC)
+        })
 public class BookingRoom {
     @PrimaryKey
     private int BookingRoomId;

@@ -20,7 +20,7 @@ public class Image {
     @PrimaryKey
     private int ImageId;
 
-    @ColumnInfo(name = "RoomTypeId")
+    @ColumnInfo(name = "RoomTypeId",defaultValue = "0")
     private int roomTypeId;
 
     @ColumnInfo(name = "ImageName")
