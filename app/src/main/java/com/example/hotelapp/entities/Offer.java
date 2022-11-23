@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 
 @Entity(tableName = "Offers",
         foreignKeys = {
-                @ForeignKey(entity = RoomType.class,
+                @ForeignKey(entity = Price.class,
                         parentColumns = "PriceId",
                         childColumns = "PriceId",
                         onDelete = ForeignKey.CASCADE)

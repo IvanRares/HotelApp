@@ -33,4 +33,46 @@ public class Image {
 
     @ColumnInfo(name = "Active", defaultValue = "1")
     private boolean active;
+
+    public int getImageId() {
+        return ImageId;
+    }
+
+    public void setImageId(int imageId) {
+        ImageId = imageId;
+    }
+
+    public int getRoomTypeId() {
+        return roomTypeId;
+    }
+
+    public void setRoomTypeId(int roomTypeId) {
+        this.roomTypeId = roomTypeId;
+    }
+
+    @NotNull
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(@NotNull String imageName) {
+        this.imageName = imageName;
+    }
+
+    @NotNull
+    public byte[] getImageData() {
+        return imageData;
+    }
+
+    public void setImageData(@NotNull byte[] imageData) {
+        this.imageData = imageData;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 }

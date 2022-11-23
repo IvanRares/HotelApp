@@ -21,7 +21,7 @@ public class Booking {
 
     @ColumnInfo(name = "StardDate")
     @NotNull
-    private String stardDate;
+    private String startDate;
 
     @ColumnInfo(name = "EndDate")
     @NotNull
@@ -52,12 +52,16 @@ public class Booking {
         this.userId = userId;
     }
 
-    public String getStardDate() {
-        return stardDate;
+    public String getStartDate() {
+        return startDate;
     }
 
-    public void setStardDate(Date stardDate) {
-        this.stardDate = formatter.format(stardDate);
+    public void setStartDate(Date startDate) {
+        this.startDate = formatter.format(startDate);
+    }
+
+    public void setStartDate(String startDate){
+        this.startDate=startDate;
     }
 
     public String getEndDate() {
@@ -66,6 +70,10 @@ public class Booking {
 
     public void setEndDate(Date endDate) {
         this.endDate = formatter.format(endDate);
+    }
+
+    public void setEndDate(String endDate){
+        this.endDate=endDate;
     }
 
     public float getTotalPrice() {

@@ -18,7 +18,7 @@ import java.util.Date;
                         parentColumns = "RoomTypeId",
                         childColumns = "RoomTypeId",
                         onDelete = ForeignKey.CASCADE)
-        },indices = {@Index(name = "Prices_IX_Prices_RoomTypeId", value = "RoomTypeId", unique = false, orders = Index.Order.ASC)})
+        }, indices = {@Index(name = "Prices_IX_Prices_RoomTypeId", value = "RoomTypeId", unique = false, orders = Index.Order.ASC)})
 public class Price {
     private static Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     @PrimaryKey
@@ -69,6 +69,10 @@ public class Price {
         this.startDate = formatter.format(startDate);
     }
 
+    public void setStartDate(@NotNull String startDate) {
+        this.startDate = startDate;
+    }
+
     @NotNull
     public String getEndDate() {
         return endDate;
@@ -76,6 +80,10 @@ public class Price {
 
     public void setEndDate(@NotNull Date endDate) {
         this.endDate = formatter.format(endDate);
+    }
+
+    public void setEndDate(@NotNull String endDate) {
+        this.endDate = endDate;
     }
 
     public float getPriceValue() {
