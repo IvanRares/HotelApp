@@ -27,7 +27,7 @@ public class Image {
     @NotNull
     private String imageName;
 
-    @ColumnInfo(name = "ImageDate")
+    @ColumnInfo(name = "ImageData")
     @NotNull
     private byte[] imageData;
 

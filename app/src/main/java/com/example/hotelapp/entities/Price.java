@@ -24,10 +24,10 @@ public class Price {
     @PrimaryKey
     private int PriceId;
 
-    @ColumnInfo(name = "RoomTypeId")
+    @ColumnInfo(name = "RoomTypeId", defaultValue = "0")
     private int roomTypeId;
 
-    @ColumnInfo(name = "StardDate")
+    @ColumnInfo(name = "StartDate")
     @NotNull
     private String startDate;
 
@@ -38,7 +38,7 @@ public class Price {
     @ColumnInfo(name = "PriceValue")
     private float priceValue;
 
-    @ColumnInfo(name = "IsOffer", defaultValue = "1")
+    @ColumnInfo(name = "IsOffer")
     private boolean isOffer;
 
     @ColumnInfo(name = "Active", defaultValue = "1")
