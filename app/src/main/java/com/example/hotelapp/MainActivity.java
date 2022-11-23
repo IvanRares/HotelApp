@@ -1,15 +1,16 @@
 package com.example.hotelapp;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.hotelapp.access_objects.RoomDao;
 import com.example.hotelapp.access_objects.RoomTypeDao;
 import com.example.hotelapp.access_objects.UserDao;
+import com.example.hotelapp.entities.Room;
 import com.example.hotelapp.entities.RoomType;
 import com.example.hotelapp.entities.User;
 
@@ -25,11 +26,11 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 TextView tx1 = findViewById(R.id.textView);
                 System.out.println("Here");
-                AppDatabase db = DatabaseCopier.getInstance(getApplicationContext()).getRoomDatabase();
+                AppDatabase db = androidx.room.Room.databaseBuilder(getApplicationContext(),AppDatabase.class,"HotelDb.db").allowMainThreadQueries().build();
                 System.out.println(getDatabasePath("HotelDb.db").getAbsolutePath());
-                RoomTypeDao roomTypeDao = db.roomTypeDao();
-                RoomType roomType = roomTypeDao.findByRoomTypeName("Type 1");
-                tx1.setText(roomType.getRoomTypeId() + roomType.getRoomTypeName() + roomType.getRoomTypeDescription());
+                RoomDao roomDao = db.roomDao();
+                Room room = roomDao.findByRoomName("1432");
+                tx1.setText(room.getRoomId()+room.getRoomTypeId()+room.getRoomName()+room.isActive());
             }
         });
     }
