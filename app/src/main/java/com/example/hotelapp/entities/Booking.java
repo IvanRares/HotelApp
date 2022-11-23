@@ -17,8 +17,16 @@ import java.util.Date;
                 @ForeignKey(entity = State.class,
                         parentColumns = "StateId",
                         childColumns = "StateId",
+                        onDelete = ForeignKey.CASCADE),
+                @ForeignKey(entity = User.class,
+                        parentColumns = "UserId",
+                        childColumns = "UserId",
                         onDelete = ForeignKey.CASCADE)
-        }, indices = {@Index(name = "States_IX_States_StateId", value = "StateId", unique = false, orders = Index.Order.ASC)})
+
+        }, indices = {
+        @Index(name = "States_IX_States_StateId", value = "StateId", unique = false, orders = Index.Order.ASC),
+        @Index(name = "Bookings_IX_Bookings_StateId", value = "StateId", unique = false, orders = Index.Order.ASC),
+@Index(name = "Bookings_IX_Bookings_UserId", value = "UserId", unique = false, orders = Index.Order.ASC)})
 public class Booking {
     private static Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     @PrimaryKey
@@ -27,7 +35,7 @@ public class Booking {
     @ColumnInfo(name = "UserId")
     private int userId;
 
-    @ColumnInfo(name = "StardDate")
+    @ColumnInfo(name = "StartDate")
     @NotNull
     private String startDate;
 
@@ -35,13 +43,16 @@ public class Booking {
     @NotNull
     private String endDate;
 
+    @ColumnInfo(name = "NumberOfRooms")
+    private int numberOfRooms;
+
     @ColumnInfo(name = "TotalPrice")
     private float totalPrice;
 
     @ColumnInfo(name = "StateId")
     private int stateId;
 
-    @ColumnInfo(name = "Active",defaultValue = "1")
+    @ColumnInfo(name = "Active", defaultValue = "1")
     private boolean active;
 
     public int getBookingId() {
@@ -68,8 +79,8 @@ public class Booking {
         this.startDate = formatter.format(startDate);
     }
 
-    public void setStartDate(String startDate){
-        this.startDate=startDate;
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
     }
 
     public String getEndDate() {
@@ -80,8 +91,16 @@ public class Booking {
         this.endDate = formatter.format(endDate);
     }
 
-    public void setEndDate(String endDate){
-        this.endDate=endDate;
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
+
+    public int getNumberOfRooms() {
+        return numberOfRooms;
+    }
+
+    public void setNumberOfRooms(int numberOfRooms) {
+        this.numberOfRooms = numberOfRooms;
     }
 
     public float getTotalPrice() {
