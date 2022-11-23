@@ -8,7 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.hotelapp.access_objects.RoomTypeDao;
 import com.example.hotelapp.access_objects.UserDao;
+import com.example.hotelapp.entities.RoomType;
 import com.example.hotelapp.entities.User;
 
 public class MainActivity extends AppCompatActivity {
@@ -25,9 +27,9 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println("Here");
                 AppDatabase db = DatabaseCopier.getInstance(getApplicationContext()).getRoomDatabase();
                 System.out.println(getDatabasePath("HotelDb.db").getAbsolutePath());
-                UserDao userDao = db.userDao();
-                User user = userDao.findByUsernameAndPassword("rares", "rares");
-                tx1.setText(user.getUserId() + user.getTypeId() + user.getUsername() + user.getPassword());
+                RoomTypeDao roomTypeDao = db.roomTypeDao();
+                RoomType roomType = roomTypeDao.findByRoomTypeName("Type 1");
+                tx1.setText(roomType.getRoomTypeId() + roomType.getRoomTypeName() + roomType.getRoomTypeDescription());
             }
         });
     }
