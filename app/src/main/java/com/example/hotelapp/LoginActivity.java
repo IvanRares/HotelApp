@@ -1,22 +1,17 @@
 package com.example.hotelapp;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.util.Pair;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.example.hotelapp.access_objects.UserDao;
-import com.example.hotelapp.entities.User;
-import com.example.hotelapp.entities.UserAndUsertypes;
-import com.example.hotelapp.entities.UserType;
+import com.example.hotelapp.pojos.UserAndUsertypes;
 
 import java.util.Locale;
-import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
 

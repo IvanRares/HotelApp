@@ -1,15 +1,10 @@
 package com.example.hotelapp.access_objects;
 
-import androidx.core.util.Pair;
 import androidx.room.Dao;
 import androidx.room.Query;
 import androidx.room.Transaction;
 
-import com.example.hotelapp.entities.User;
-import com.example.hotelapp.entities.UserAndUsertypes;
-import com.example.hotelapp.entities.UserType;
-
-import java.util.Map;
+import com.example.hotelapp.pojos.UserAndUsertypes;
 
 @Dao
 public interface UserDao {
