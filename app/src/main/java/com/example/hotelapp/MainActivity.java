@@ -20,12 +20,14 @@ public class MainActivity extends AppCompatActivity {
 
     Button loginButton;
     Button registerButton;
+     Button clientButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        loginButton=findViewById(R.id.login);
         registerButton=findViewById(R.id.register);
+        loginButton = findViewById(R.id.login);
+        clientButton = findViewById(R.id.guest);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -42,6 +44,13 @@ public class MainActivity extends AppCompatActivity {
 //                System.out.println(room);
 //                tx1.setText(room.getRoomId()+room.getRoomTypeId()+room.getRoomName()+room.isActive());
             }
+
+        });
+        clientButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                switchToGuest();
+            }
         });
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,6 +64,12 @@ public class MainActivity extends AppCompatActivity {
         Intent i=new Intent(this,LoginActivity.class);
         i.putExtra("TYPE_OF_LOGIN",typeOfLogin);
         startActivity(i);
+        finish();
+    }
+    private void switchToGuest() {
+        Intent i=new Intent(this,ClientActivity.class);
+        startActivity(i);
+        finish();
     }
 
 }
