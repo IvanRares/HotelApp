@@ -2,6 +2,7 @@ package com.example.hotelapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -20,23 +21,29 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final Button button = findViewById(R.id.button);
+        final Button button = findViewById(R.id.login);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextView tx1 = findViewById(R.id.textView);
-                AppDatabase db = androidx.room.Room.databaseBuilder(getApplicationContext(),AppDatabase.class,"HotelDb.db").allowMainThreadQueries().build();
-                //AppDatabase db = databaseCopier.getDatabase();
-                System.out.println(getDatabasePath("HotelDb.db").getAbsolutePath());
-                UserDao userDao = db.userDao();
-                User user=userDao.findByUsernameAndPassword("rares","rares");
-                System.out.println(user.getUsername());
+                switchToLogin();
+//                TextView tx1 = findViewById(R.id.textView);
+//                AppDatabase db = androidx.room.Room.databaseBuilder(getApplicationContext(),AppDatabase.class,"HotelDb.db").allowMainThreadQueries().build();
+//                //AppDatabase db = databaseCopier.getDatabase();
+//                System.out.println(getDatabasePath("HotelDb.db").getAbsolutePath());
+//                UserDao userDao = db.userDao();
+//                User user=userDao.findByUsernameAndPassword("rares","rares");
+//                System.out.println(user.getUsername());
 //                RoomDao roomDao = db.roomDao();
 //                Room room = roomDao.findByRoomName();
 //                System.out.println(room);
 //                tx1.setText(room.getRoomId()+room.getRoomTypeId()+room.getRoomName()+room.isActive());
             }
         });
+    }
+
+    private void switchToLogin() {
+        Intent i=new Intent(this,LoginActivity.class);
+        startActivity(i);
     }
 
 }
