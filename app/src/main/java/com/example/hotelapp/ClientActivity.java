@@ -8,8 +8,10 @@ import androidx.fragment.app.FragmentManager;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.Toast;
 
+import com.example.hotelapp.fragments.OffersFragment;
+import com.example.hotelapp.fragments.RoomTypesFragment;
+import com.example.hotelapp.fragments.RoomsFragment;
 import com.google.android.material.navigation.NavigationView;
 
 public class ClientActivity extends AppCompatActivity {
@@ -42,7 +44,7 @@ public class ClientActivity extends AppCompatActivity {
                 switch(id)
                 {
                     case R.id.offers:
-                        fragmentManager.beginTransaction().replace(R.id.fragmentContainerView2,OffersFragment.class,null)
+                        fragmentManager.beginTransaction().replace(R.id.fragmentContainerView2, OffersFragment.class,null)
                                 .setReorderingAllowed(true)
                                 .addToBackStack("name")
                                 .commit();
@@ -56,7 +58,7 @@ public class ClientActivity extends AppCompatActivity {
                         break;
 
                     case R.id.rooms:
-                        fragmentManager.beginTransaction().replace(R.id.fragmentContainerView2,RoomsFragment.class,null)
+                        fragmentManager.beginTransaction().replace(R.id.fragmentContainerView2, RoomsFragment.class,null)
                                 .setReorderingAllowed(true)
                                 .addToBackStack("name")
                                 .commit();

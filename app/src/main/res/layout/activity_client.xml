@@ -15,7 +15,7 @@
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragmentContainerView2"
-            android:name="com.example.hotelapp.RoomsFragment"
+            android:name="com.example.hotelapp.fragments.RoomsFragment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
