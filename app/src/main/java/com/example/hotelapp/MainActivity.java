@@ -1,6 +1,7 @@
 package com.example.hotelapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,21 +12,24 @@ import android.widget.TextView;
 import com.example.hotelapp.access_objects.RoomDao;
 import com.example.hotelapp.access_objects.RoomTypeDao;
 import com.example.hotelapp.access_objects.UserDao;
-import com.example.hotelapp.entities.Room;
 import com.example.hotelapp.entities.RoomType;
 import com.example.hotelapp.entities.User;
 
 public class MainActivity extends AppCompatActivity {
 
+
+    Button loginButton;
+    Button registerButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final Button button = findViewById(R.id.login);
-        button.setOnClickListener(new View.OnClickListener() {
+        loginButton=findViewById(R.id.login);
+        registerButton=findViewById(R.id.register);
+        loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                switchToLogin();
+                switchToLogin("Login");
 //                TextView tx1 = findViewById(R.id.textView);
 //                AppDatabase db = androidx.room.Room.databaseBuilder(getApplicationContext(),AppDatabase.class,"HotelDb.db").allowMainThreadQueries().build();
 //                //AppDatabase db = databaseCopier.getDatabase();
@@ -39,10 +43,17 @@ public class MainActivity extends AppCompatActivity {
 //                tx1.setText(room.getRoomId()+room.getRoomTypeId()+room.getRoomName()+room.isActive());
             }
         });
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                switchToLogin("Register");
+            }
+        });
     }
 
-    private void switchToLogin() {
+    private void switchToLogin(String typeOfLogin) {
         Intent i=new Intent(this,LoginActivity.class);
+        i.putExtra("TYPE_OF_LOGIN",typeOfLogin);
         startActivity(i);
     }
 

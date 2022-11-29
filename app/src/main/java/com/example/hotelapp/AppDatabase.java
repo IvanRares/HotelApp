@@ -1,5 +1,7 @@
 package com.example.hotelapp;
 
+import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.RoomDatabase;
@@ -29,4 +31,21 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract UserDao userDao();
     public abstract RoomTypeDao roomTypeDao();
     public abstract RoomDao roomDao();
+
+    private static volatile AppDatabase INSTANCE;
+    static synchronized AppDatabase getInstance(Context context){
+        if(INSTANCE==null){
+            INSTANCE=create(context);
+        }
+        return INSTANCE;
+    }
+
+    private static AppDatabase create(final Context context) {
+        return androidx.room.Room.databaseBuilder(
+                context,
+                AppDatabase.class,
+                "HotelDb.db").allowMainThreadQueries().build();
+    }
 }
+
+
