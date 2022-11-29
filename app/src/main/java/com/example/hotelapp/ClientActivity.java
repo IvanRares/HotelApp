@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentManager;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -37,18 +38,34 @@ public class ClientActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
+                FragmentManager fragmentManager=getSupportFragmentManager();
                 switch(id)
                 {
-                    case R.id.account:
-                        Toast.makeText(ClientActivity.this, "My Account",Toast.LENGTH_SHORT).show();
-                    case R.id.settings:
-                        Toast.makeText(ClientActivity.this, "Settings",Toast.LENGTH_SHORT).show();
-                    case R.id.mycart:
-                        Toast.makeText(ClientActivity.this, "My Cart",Toast.LENGTH_SHORT).show();
-                    default:
-                        return true;
-                }
+                    case R.id.offers:
+                        fragmentManager.beginTransaction().replace(R.id.fragmentContainerView2,OffersFragment.class,null)
+                                .setReorderingAllowed(true)
+                                .addToBackStack("name")
+                                .commit();
+                        break;
 
+                    case R.id.roomTypes:
+                        fragmentManager.beginTransaction().replace(R.id.fragmentContainerView2, RoomTypesFragment.class, null)
+                                .setReorderingAllowed(true)
+                                .addToBackStack("name")
+                                .commit();
+                        break;
+
+                    case R.id.rooms:
+                        fragmentManager.beginTransaction().replace(R.id.fragmentContainerView2,RoomsFragment.class,null)
+                                .setReorderingAllowed(true)
+                                .addToBackStack("name")
+                                .commit();
+                        break;
+                    default:
+                        break;
+
+                }
+                return true;
 
 
 
