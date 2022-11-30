@@ -6,10 +6,12 @@ import androidx.room.Transaction;
 
 import com.example.hotelapp.pojos.UserAndUsertypes;
 
+import java.util.Optional;
+
 @Dao
 public interface UserDao {
 
     @Transaction
     @Query("SELECT * from Users WHERE Username Like:username AND Password LIKE:password LIMIT 1")
-    UserAndUsertypes findByUsernameAndPassword(String username, String password);
+    Optional<UserAndUsertypes> findByUsernameAndPassword(String username, String password);
 }

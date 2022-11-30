@@ -33,7 +33,7 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract RoomDao roomDao();
 
     private static volatile AppDatabase INSTANCE;
-    static synchronized AppDatabase getInstance(Context context){
+    public static synchronized AppDatabase getInstance(Context context){
         if(INSTANCE==null){
             INSTANCE=create(context);
         }

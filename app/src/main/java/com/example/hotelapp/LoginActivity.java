@@ -12,6 +12,7 @@ import com.example.hotelapp.access_objects.UserDao;
 import com.example.hotelapp.pojos.UserAndUsertypes;
 
 import java.util.Locale;
+import java.util.Optional;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -43,10 +44,13 @@ public class LoginActivity extends AppCompatActivity {
         String username = usernameInput.getText().toString();
         String password = passwordInput.getText().toString();
         UserDao userDao = db.userDao();
-        UserAndUsertypes user = userDao.findByUsernameAndPassword(username, password);
-        if(user.userType.getName().equals("Admin")) {
-            Intent i = new Intent(this, AdminActivity.class);
-            startActivity(i);
+        Optional<UserAndUsertypes> foundValue = userDao.findByUsernameAndPassword(username, password);
+        if(foundValue.isPresent()) {
+            UserAndUsertypes user= foundValue.get();
+            if (user.userType.getName().equals("Admin")) {
+                Intent i = new Intent(this, AdminActivity.class);
+                startActivity(i);
+            }
         }
     }
 
