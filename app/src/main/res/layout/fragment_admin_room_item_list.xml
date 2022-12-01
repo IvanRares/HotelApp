@@ -23,6 +23,6 @@
             android:layout_marginRight="16dp"
             app:layoutManager="LinearLayoutManager"
             tools:context=".fragments.AdminRoomFragment"
-            tools:listitem="@layout/fragment_item" />
+            tools:listitem="@layout/fragment_admin_room_item" />
     </HorizontalScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

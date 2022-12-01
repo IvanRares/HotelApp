@@ -14,11 +14,9 @@ import android.view.ViewGroup;
 
 import com.example.hotelapp.AppDatabase;
 import com.example.hotelapp.R;
-import com.example.hotelapp.placeholder.PlaceholderContent;
 import com.example.hotelapp.pojos.RoomAndRoomTypes;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * A fragment representing a list of Items.
@@ -59,14 +57,13 @@ public class AdminRoomFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_item_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_admin_room_item_list, container, false);
         RecyclerView recyclerView=view.findViewById(R.id.admin_room_list);
         AppDatabase db=AppDatabase.getInstance(getContext());
         List<RoomAndRoomTypes> foundList= db.roomDao().getRooms();
         // Set the adapter
         if (recyclerView instanceof RecyclerView) {
             Context context = view.getContext();
-            System.out.println("Here");
             if (mColumnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {

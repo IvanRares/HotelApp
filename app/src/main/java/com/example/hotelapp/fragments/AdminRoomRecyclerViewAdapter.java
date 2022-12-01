@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.hotelapp.R;
-import com.example.hotelapp.databinding.FragmentItemBinding;
+import com.example.hotelapp.databinding.FragmentAdminRoomItemBinding;
 import com.example.hotelapp.pojos.RoomAndRoomTypes;
 
 import java.util.List;
@@ -28,7 +28,7 @@ public class AdminRoomRecyclerViewAdapter extends RecyclerView.Adapter<AdminRoom
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        return new ViewHolder(FragmentItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
+        return new ViewHolder(FragmentAdminRoomItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
 
     }
 
@@ -69,7 +69,7 @@ public class AdminRoomRecyclerViewAdapter extends RecyclerView.Adapter<AdminRoom
         public final TextView mContentView;
         public RoomAndRoomTypes mItem;
 
-        public ViewHolder(FragmentItemBinding binding) {
+        public ViewHolder(FragmentAdminRoomItemBinding binding) {
             super(binding.getRoot());
             mRoomName = binding.roomName;
             mContentView = binding.roomType;
