@@ -68,9 +68,6 @@ public class EditRoomActivity extends AppCompatActivity {
             String selectedRoomType = roomTypes.getSelectedItem().toString();
             int roomTypeId = roomTypeList.stream().filter(x -> x.getRoomTypeName().equals(selectedRoomType)).findFirst().get().getRoomTypeId();
             long id=db.roomDao().insertRoom(new Room(roomTypeId, roomName.getText().toString()));
-//            db.roomDao().insertRoom();
-            Room item=db.roomDao().getRoomByRoomId(id);
-            System.out.println(item.getRoomName()+" "+item.isActive());
         }
         finish();
     }

@@ -35,10 +35,4 @@ public interface RoomDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE,entity = Room.class)
     long insertRoom(Room item);
-
-    @Query("SELECT * from Rooms WHERE RoomId LIKE:id")
-    Room getRoomByRoomId(long id);
-
-    @Query("INSERT INTO Rooms(RoomName,RoomTypeId) values('roomnouhere',1)")
-    void insertRoom();
 }
