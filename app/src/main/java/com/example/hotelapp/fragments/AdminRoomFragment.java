@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -60,7 +61,7 @@ public class AdminRoomFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_admin_room_item_list, container, false);
         RecyclerView recyclerView=view.findViewById(R.id.admin_room_list);
         AppDatabase db=AppDatabase.getInstance(getContext());
-        List<RoomAndRoomTypes> foundList= db.roomDao().getRooms();
+        LiveData<List<RoomAndRoomTypes>> foundList= db.roomDao().getRooms();
         // Set the adapter
         if (recyclerView instanceof RecyclerView) {
             Context context = view.getContext();
@@ -69,7 +70,9 @@ public class AdminRoomFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new AdminRoomRecyclerViewAdapter(foundList));
+            AdminRoomRecyclerViewAdapter adapter=new AdminRoomRecyclerViewAdapter(getContext());
+            db.roomDao().getRooms().observe(getViewLifecycleOwner(),data->adapter.setData(data));
+            recyclerView.setAdapter(adapter);
         }
         return view;
     }

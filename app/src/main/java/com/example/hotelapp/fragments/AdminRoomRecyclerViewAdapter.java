@@ -1,16 +1,21 @@
 package com.example.hotelapp.fragments;
 
+import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.hotelapp.EditRoomActivity;
 import com.example.hotelapp.R;
 import com.example.hotelapp.databinding.FragmentAdminRoomItemBinding;
 import com.example.hotelapp.pojos.RoomAndRoomTypes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,10 +24,17 @@ import java.util.List;
  */
 public class AdminRoomRecyclerViewAdapter extends RecyclerView.Adapter<AdminRoomRecyclerViewAdapter.ViewHolder> {
 
-    private final List<RoomAndRoomTypes> mValues;
+    private List<RoomAndRoomTypes> mValues=new ArrayList<>();
+    private final Context mContext;
 
-    public AdminRoomRecyclerViewAdapter(List<RoomAndRoomTypes> items) {
-        mValues = items;
+    public AdminRoomRecyclerViewAdapter(Context context) {
+        mContext = context;
+    }
+
+    public void setData(List<RoomAndRoomTypes> newData) {
+        System.out.println("setdata");
+        this.mValues = newData;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -53,9 +65,18 @@ public class AdminRoomRecyclerViewAdapter extends RecyclerView.Adapter<AdminRoom
             setContentBg(holder.mRoomName);
             setContentBg(holder.mContentView);
 
-            holder.mItem = mValues.get(position - 1);
+            holder.mItem = mValues.get(position-1);
             holder.mRoomName.setText(mValues.get(position - 1).room.getRoomName());
             holder.mContentView.setText(mValues.get(position - 1).roomType.getRoomTypeName());
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i=new Intent(mContext, EditRoomActivity.class);
+                    i.putExtra("roomId",holder.mItem.room.getRoomId());
+                    mContext.startActivity(i);
+                    notifyDataSetChanged();
+                }
+            });
         }
     }
 

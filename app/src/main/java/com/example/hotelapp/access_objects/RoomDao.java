@@ -1,8 +1,10 @@
 package com.example.hotelapp.access_objects;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Query;
 import androidx.room.Transaction;
+import androidx.room.Update;
 
 import com.example.hotelapp.entities.Room;
 import com.example.hotelapp.pojos.RoomAndRoomTypes;
@@ -18,5 +20,12 @@ public interface RoomDao {
 
     @Transaction
     @Query("SELECT * from Rooms WHERE Active = 1")
-    List<RoomAndRoomTypes> getRooms();
+    LiveData<List<RoomAndRoomTypes>> getRooms();
+
+    @Transaction
+    @Query("SELECT * from Rooms WHERE RoomId LIKE:id")
+    RoomAndRoomTypes getRoomById(int id);
+
+    @Update
+    void updateRoom(Room item);
 }
