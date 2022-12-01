@@ -72,7 +72,7 @@ public class RoomTypesFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new RoomTypeRecyclerViewAdapter(foundList));
+            recyclerView.setAdapter(new RoomTypeRecyclerViewAdapter(foundList,context));
         }
         return view;
     }
