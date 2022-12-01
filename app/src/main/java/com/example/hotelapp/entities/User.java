@@ -22,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
         })
 public class User {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int UserId;
 
     @ColumnInfo(name = "UserTypeId")
@@ -37,7 +37,7 @@ public class User {
     private String password;
 
     @ColumnInfo(name = "Active", defaultValue = "1")
-    private boolean active;
+    private boolean active=true;
 
     public int getUserId() {
         return UserId;

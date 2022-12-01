@@ -21,7 +21,7 @@ import java.util.Date;
         }, indices = {@Index(name = "Prices_IX_Prices_RoomTypeId", value = "RoomTypeId", unique = false, orders = Index.Order.ASC)})
 public class Price {
     private static Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int PriceId;
 
     @ColumnInfo(name = "RoomTypeId", defaultValue = "0")
@@ -42,7 +42,7 @@ public class Price {
     private boolean isOffer;
 
     @ColumnInfo(name = "Active", defaultValue = "1")
-    private boolean active;
+    private boolean active=true;
 
     public int getPriceId() {
         return PriceId;

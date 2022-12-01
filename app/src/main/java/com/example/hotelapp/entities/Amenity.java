@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 
 @Entity(tableName = "Amenities")
 public class Amenity {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int AmenityId;
 
     @ColumnInfo(name = "AmenityName")
@@ -19,7 +19,7 @@ public class Amenity {
     private float price;
 
     @ColumnInfo(name = "Active", defaultValue = "1")
-    private boolean active;
+    private boolean active=true;
 
     public int getAmenityId() {
         return AmenityId;

@@ -32,9 +32,13 @@ public class AdminRoomRecyclerViewAdapter extends RecyclerView.Adapter<AdminRoom
     }
 
     public void setData(List<RoomAndRoomTypes> newData) {
-        System.out.println("setdata");
+        if(mValues!=null)
+        {
+            mValues.clear();
+            mValues.addAll(newData);
+            notifyDataSetChanged();
+        }
         this.mValues = newData;
-        notifyDataSetChanged();
     }
 
     @Override
@@ -72,6 +76,7 @@ public class AdminRoomRecyclerViewAdapter extends RecyclerView.Adapter<AdminRoom
                 @Override
                 public void onClick(View view) {
                     Intent i=new Intent(mContext, EditRoomActivity.class);
+                    i.putExtra("Option","Edit");
                     i.putExtra("roomId",holder.mItem.room.getRoomId());
                     mContext.startActivity(i);
                     notifyDataSetChanged();

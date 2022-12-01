@@ -1,7 +1,11 @@
 package com.example.hotelapp.access_objects;
 
+import static androidx.room.OnConflictStrategy.REPLACE;
+
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Transaction;
 import androidx.room.Update;
@@ -28,4 +32,13 @@ public interface RoomDao {
 
     @Update
     void updateRoom(Room item);
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE,entity = Room.class)
+    long insertRoom(Room item);
+
+    @Query("SELECT * from Rooms WHERE RoomId LIKE:id")
+    Room getRoomByRoomId(long id);
+
+    @Query("INSERT INTO Rooms(RoomName,RoomTypeId) values('roomnouhere',1)")
+    void insertRoom();
 }

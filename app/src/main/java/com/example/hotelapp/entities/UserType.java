@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 public class UserType {
 
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int UserTypeId;
 
     @ColumnInfo(name = "UserTypeName")
@@ -18,7 +18,7 @@ public class UserType {
     private String name;
 
     @ColumnInfo(name="Active",defaultValue = "1")
-    private boolean active;
+    private boolean active=true;
 
     public int getUserTypeId() {
         return UserTypeId;

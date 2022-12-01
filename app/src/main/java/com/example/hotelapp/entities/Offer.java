@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
                         onDelete = ForeignKey.CASCADE)
         },indices = {@Index(name = "Offers_IX_Offers_PriceId", value = "PriceId", unique = false, orders = Index.Order.ASC)})
 public class Offer {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int OfferId;
 
     @ColumnInfo(name = "PriceId")
@@ -27,7 +27,7 @@ public class Offer {
     private String OfferName;
 
     @ColumnInfo(name = "Active", defaultValue = "1")
-    private boolean active;
+    private boolean active=true;
 
     public int getOfferId() {
         return OfferId;

@@ -29,7 +29,7 @@ import java.util.Date;
 @Index(name = "Bookings_IX_Bookings_UserId", value = "UserId", unique = false, orders = Index.Order.ASC)})
 public class Booking {
     private static Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int BookingId;
 
     @ColumnInfo(name = "UserId")
@@ -53,7 +53,7 @@ public class Booking {
     private int stateId;
 
     @ColumnInfo(name = "Active", defaultValue = "1")
-    private boolean active;
+    private boolean active=true;
 
     public int getBookingId() {
         return BookingId;

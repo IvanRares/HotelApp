@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
         @Index(name = "Rooms_roomNameUnique",value = "RoomName",unique = true,orders = Index.Order.ASC),
         @Index(name = "Rooms_IX_Rooms_RoomTypeId", value = "RoomTypeId", unique = false, orders = Index.Order.ASC)})
 public class Room {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int RoomId;
 
     @ColumnInfo(name = "RoomTypeId")
@@ -29,7 +29,7 @@ public class Room {
     private String roomName;
 
     @ColumnInfo(name = "Active", defaultValue = "1")
-    private boolean active;
+    private boolean active=true;
 
     public int getRoomId() {
         return RoomId;
@@ -62,5 +62,10 @@ public class Room {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public Room(int roomTypeId, @NotNull String roomName) {
+        this.roomTypeId = roomTypeId;
+        this.roomName = roomName;
     }
 }

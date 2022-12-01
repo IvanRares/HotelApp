@@ -22,7 +22,7 @@ import androidx.room.PrimaryKey;
                 @Index(name = "BookingRooms_IX_BookingRooms_RoomId",value = "RoomId",unique = false,orders = Index.Order.ASC)
         })
 public class BookingRoom {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int BookingRoomId;
 
     @ColumnInfo(name = "BookingId")
@@ -32,7 +32,7 @@ public class BookingRoom {
     private int roomId;
 
     @ColumnInfo(name = "Active", defaultValue = "1")
-    private boolean active;
+    private boolean active=true;
 
     public int getBookingRoomId() {
         return BookingRoomId;

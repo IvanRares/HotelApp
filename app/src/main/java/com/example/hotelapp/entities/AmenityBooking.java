@@ -22,7 +22,7 @@ indices = {
         @Index(name = "AmenityBookings_IX_AmenityBookings_AmenityId",value = "AmenityId",unique = false,orders = Index.Order.ASC)
 })
 public class AmenityBooking {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int AmenityBookingId;
 
     @ColumnInfo(name = "AmenityId")
@@ -32,7 +32,7 @@ public class AmenityBooking {
     private int bookingId;
 
     @ColumnInfo(name = "Active", defaultValue = "1")
-    private boolean active;
+    private boolean active=true;
 
     public int getAmenityBookingId() {
         return AmenityBookingId;

@@ -17,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
         },indices = {@Index(name = "Images_IX_Images_RoomTypeId", value = "RoomTypeId", unique = false, orders = Index.Order.ASC)})
 public class Image {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int ImageId;
 
     @ColumnInfo(name = "RoomTypeId",defaultValue = "0")
@@ -32,7 +32,7 @@ public class Image {
     private byte[] imageData;
 
     @ColumnInfo(name = "Active", defaultValue = "1")
-    private boolean active;
+    private boolean active=true;
 
     public int getImageId() {
         return ImageId;

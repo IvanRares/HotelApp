@@ -1,6 +1,7 @@
 package com.example.hotelapp.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,10 +13,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.hotelapp.AppDatabase;
+import com.example.hotelapp.EditRoomActivity;
 import com.example.hotelapp.R;
 import com.example.hotelapp.pojos.RoomAndRoomTypes;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
@@ -74,6 +78,16 @@ public class AdminRoomFragment extends Fragment {
             db.roomDao().getRooms().observe(getViewLifecycleOwner(),data->adapter.setData(data));
             recyclerView.setAdapter(adapter);
         }
+
+        FloatingActionButton addButton=view.findViewById(R.id.admin_room_item_list_fab);
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i=new Intent(getContext(), EditRoomActivity.class);
+                i.putExtra("Option","Add");
+                startActivity(i);
+            }
+        });
         return view;
     }
 }

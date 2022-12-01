@@ -7,7 +7,7 @@ import org.jetbrains.annotations.NotNull;
 
 @Entity(tableName = "States")
 public class State {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int StateId;
 
     @NotNull
@@ -20,7 +20,7 @@ public class State {
     private String stateName;
 
     @ColumnInfo(name = "Active", defaultValue = "1")
-    private boolean active;
+    private boolean active=true;
 
     public int getStateId() {
         return StateId;

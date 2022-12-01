@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 
 @Entity(tableName = "RoomTypes")
 public class RoomType {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int RoomTypeId;
 
     @ColumnInfo(name = "RoomTypeName")
@@ -20,7 +20,7 @@ public class RoomType {
     private String roomTypeDescription;
 
     @ColumnInfo(name = "Active", defaultValue = "1")
-    private boolean active;
+    private boolean active=true;
 
     public int getRoomTypeId() {
         return RoomTypeId;

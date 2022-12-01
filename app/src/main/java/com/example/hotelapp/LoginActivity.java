@@ -44,6 +44,7 @@ public class LoginActivity extends AppCompatActivity {
         String username = usernameInput.getText().toString();
         String password = passwordInput.getText().toString();
         UserDao userDao = db.userDao();
+        System.out.println(getApplicationContext().getDatabasePath("HotelDb.db"));
         Optional<UserAndUsertypes> foundValue = userDao.findByUsernameAndPassword(username, password);
         if(foundValue.isPresent()) {
             UserAndUsertypes user= foundValue.get();
