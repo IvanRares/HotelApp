@@ -43,21 +43,21 @@ public class ClientActivity extends AppCompatActivity {
                 FragmentManager fragmentManager=getSupportFragmentManager();
                 switch(id)
                 {
-                    case R.id.offers:
+                    case R.id.navigation_offers:
                         fragmentManager.beginTransaction().replace(R.id.fragmentContainerView2, OffersFragment.class,null)
                                 .setReorderingAllowed(true)
                                 .addToBackStack("name")
                                 .commit();
                         break;
 
-                    case R.id.roomTypes:
+                    case R.id.navigation_roomTypes:
                         fragmentManager.beginTransaction().replace(R.id.fragmentContainerView2, RoomTypesFragment.class, null)
                                 .setReorderingAllowed(true)
                                 .addToBackStack("name")
                                 .commit();
                         break;
 
-                    case R.id.rooms:
+                    case R.id.navigation_rooms:
                         fragmentManager.beginTransaction().replace(R.id.fragmentContainerView2, RoomsFragment.class,null)
                                 .setReorderingAllowed(true)
                                 .addToBackStack("name")
