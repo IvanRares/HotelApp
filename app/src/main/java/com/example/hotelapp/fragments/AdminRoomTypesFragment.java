@@ -1,11 +1,9 @@
 package com.example.hotelapp.fragments;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,20 +11,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.example.hotelapp.AppDatabase;
-import com.example.hotelapp.EditRoomActivity;
 import com.example.hotelapp.R;
-import com.example.hotelapp.pojos.RoomAndRoomTypes;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import java.util.List;
+import com.example.hotelapp.fragments.placeholder.PlaceholderContent;
 
 /**
  * A fragment representing a list of Items.
  */
-public class AdminRoomFragment extends Fragment {
+public class AdminRoomTypesFragment extends Fragment {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -37,13 +30,13 @@ public class AdminRoomFragment extends Fragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public AdminRoomFragment() {
+    public AdminRoomTypesFragment() {
     }
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
-    public static AdminRoomFragment newInstance(int columnCount) {
-        AdminRoomFragment fragment = new AdminRoomFragment();
+    public static AdminRoomTypesFragment newInstance(int columnCount) {
+        AdminRoomTypesFragment fragment = new AdminRoomTypesFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
@@ -62,8 +55,9 @@ public class AdminRoomFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_admin_room_item_list, container, false);
-        RecyclerView recyclerView=view.findViewById(R.id.admin_room_list);
+        View view = inflater.inflate(R.layout.fragment_admin_room_type_item_list, container, false);
+
+        RecyclerView recyclerView=view.findViewById(R.id.admin_room_type_list);
         AppDatabase db=AppDatabase.getInstance(getContext());
         // Set the adapter
         if (recyclerView instanceof RecyclerView) {
@@ -73,20 +67,10 @@ public class AdminRoomFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            AdminRoomRecyclerViewAdapter adapter=new AdminRoomRecyclerViewAdapter(getContext());
-            db.roomDao().getRooms().observe(getViewLifecycleOwner(),data->adapter.setData(data));
+            AdminRoomTypesRecyclerViewAdapter adapter=new AdminRoomTypesRecyclerViewAdapter(getContext());
+            db.roomTypeDao().getLiveRoomTypes().observe(getViewLifecycleOwner(),data->adapter.setData(data));
             recyclerView.setAdapter(adapter);
         }
-
-        FloatingActionButton addButton=view.findViewById(R.id.admin_room_item_list_fab);
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i=new Intent(getContext(), EditRoomActivity.class);
-                i.putExtra("Option","Add");
-                startActivity(i);
-            }
-        });
         return view;
     }
 }

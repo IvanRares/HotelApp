@@ -79,7 +79,6 @@ public class AdminRoomRecyclerViewAdapter extends RecyclerView.Adapter<AdminRoom
                     i.putExtra("Option","Edit");
                     i.putExtra("roomId",holder.mItem.room.getRoomId());
                     mContext.startActivity(i);
-                    notifyDataSetChanged();
                 }
             });
         }
@@ -97,8 +96,8 @@ public class AdminRoomRecyclerViewAdapter extends RecyclerView.Adapter<AdminRoom
 
         public ViewHolder(FragmentAdminRoomItemBinding binding) {
             super(binding.getRoot());
-            mRoomName = binding.roomName;
-            mContentView = binding.roomType;
+            mRoomName = binding.adminRoomRoomName;
+            mContentView = binding.adminRoomRoomType;
         }
 
         @Override

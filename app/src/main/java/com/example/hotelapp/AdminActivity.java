@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.hotelapp.fragments.AdminRoomFragment;
+import com.example.hotelapp.fragments.AdminRoomTypesFragment;
 import com.example.hotelapp.fragments.OffersFragment;
 import com.example.hotelapp.fragments.RoomTypesFragment;
 import com.example.hotelapp.fragments.RoomsFragment;
@@ -51,7 +52,7 @@ public class AdminActivity extends AppCompatActivity {
                         break;
 
                     case R.id.navigation_roomTypes:
-                        fragmentManager.beginTransaction().replace(R.id.fragmentContainerView2, RoomTypesFragment.class, null)
+                        fragmentManager.beginTransaction().replace(R.id.fragmentContainerView2, AdminRoomTypesFragment.class, null)
                                 .setReorderingAllowed(true)
                                 .addToBackStack("name")
                                 .commit();
