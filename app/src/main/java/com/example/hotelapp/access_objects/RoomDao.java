@@ -33,6 +33,6 @@ public interface RoomDao {
     @Update
     void updateRoom(Room item);
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE,entity = Room.class)
-    long insertRoom(Room item);
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    void insertRoom(Room item);
 }
