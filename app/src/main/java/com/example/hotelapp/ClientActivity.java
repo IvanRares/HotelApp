@@ -3,6 +3,7 @@ package com.example.hotelapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 
@@ -67,6 +68,7 @@ public class ClientActivity extends AppCompatActivity {
                         break;
 
                 }
+                dl.closeDrawer(GravityCompat.START);
                 return true;
 
 

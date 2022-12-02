@@ -3,12 +3,14 @@ package com.example.hotelapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.hotelapp.fragments.AdminRoomFragment;
 import com.example.hotelapp.fragments.OffersFragment;
 import com.example.hotelapp.fragments.RoomTypesFragment;
 import com.example.hotelapp.fragments.RoomsFragment;
@@ -56,7 +58,7 @@ public class AdminActivity extends AppCompatActivity {
                         break;
 
                     case R.id.navigation_rooms:
-                        fragmentManager.beginTransaction().replace(R.id.fragmentContainerView2, RoomsFragment.class,null)
+                        fragmentManager.beginTransaction().replace(R.id.fragmentContainerView2, AdminRoomFragment.class,null)
                                 .setReorderingAllowed(true)
                                 .addToBackStack("name")
                                 .commit();
@@ -65,6 +67,7 @@ public class AdminActivity extends AppCompatActivity {
                         break;
 
                 }
+                dl.closeDrawer(GravityCompat.START);
                 return true;
 
 
