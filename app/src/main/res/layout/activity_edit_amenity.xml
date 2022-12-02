@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditAmenityActivity">
+
+    <EditText
+        android:id="@+id/edit_amenity_amenityName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Name"
+        android:inputType="text"
+        android:minHeight="48dp"
+        app:layout_constraintLeft_toLeftOf="@id/edit_amenity_left_guideline"
+        app:layout_constraintRight_toLeftOf="@id/edit_amenity_right_guideline"
+        app:layout_constraintTop_toTopOf="@id/edit_amenity_top_guideline1" />
+
+    <EditText
+        android:id="@+id/edit_amenity_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Price"
+        android:inputType="numberDecimal"
+        android:minHeight="48dp"
+        app:layout_constraintLeft_toLeftOf="@id/edit_amenity_left_guideline"
+        app:layout_constraintRight_toLeftOf="@id/edit_amenity_right_guideline"
+        app:layout_constraintTop_toTopOf="@id/edit_amenity_top_guideline2" />
+
+    <Button
+        android:id="@+id/edit_amenity_saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/edit_amenity_left_guideline"
+        app:layout_constraintRight_toLeftOf="@id/edit_amenity_right_guideline"
+        app:layout_constraintTop_toTopOf="@id/edit_amenity_top_guideline3"
+        android:text="Save">
+
+    </Button>
+
+    <Button
+        android:id="@+id/edit_amenity_deleteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/edit_amenity_left_guideline"
+        app:layout_constraintRight_toLeftOf="@id/edit_amenity_right_guideline"
+        app:layout_constraintTop_toTopOf="@id/edit_amenity_top_guideline4"
+        android:visibility="gone"
+        android:text="Delete">
+
+    </Button>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/edit_amenity_top_guideline1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/edit_amenity_top_guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.2" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/edit_amenity_top_guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.3" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/edit_amenity_top_guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.4" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/edit_amenity_left_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.2" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/edit_amenity_right_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.8" />
+</androidx.constraintlayout.widget.ConstraintLayout>

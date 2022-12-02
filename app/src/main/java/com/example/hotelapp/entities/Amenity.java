@@ -21,6 +21,11 @@ public class Amenity {
     @ColumnInfo(name = "Active", defaultValue = "1")
     private boolean active=true;
 
+    public Amenity(String amenityName, float price) {
+        this.amenityName = amenityName;
+        this.price = price;
+    }
+
     public int getAmenityId() {
         return AmenityId;
     }

@@ -8,6 +8,7 @@ import androidx.room.RoomDatabase;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.example.hotelapp.access_objects.AmenityDao;
 import com.example.hotelapp.access_objects.ImageDao;
 import com.example.hotelapp.access_objects.RoomDao;
 import com.example.hotelapp.access_objects.RoomTypeDao;
@@ -33,6 +34,7 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract RoomTypeDao roomTypeDao();
     public abstract RoomDao roomDao();
     public abstract ImageDao imageDao();
+    public abstract AmenityDao amenityDao();
 
     private static volatile AppDatabase INSTANCE;
     public static synchronized AppDatabase getInstance(Context context){
