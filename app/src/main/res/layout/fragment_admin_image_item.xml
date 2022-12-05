@@ -16,19 +16,21 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content">
 
+        <ImageView
+            android:id="@+id/admin_image_data"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:maxHeight="250dp"
+            android:maxWidth="250dp"
+            android:adjustViewBounds="true"
+            android:layout_gravity="top"
+            android:textAppearance="?attr/textAppearanceListItem" />
         <TextView
             android:id="@+id/admin_image_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="top"
             android:text="Type"
-            android:textAppearance="?attr/textAppearanceListItem" />
-
-        <ImageView
-            android:id="@+id/admin_image_data"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="top"
             android:textAppearance="?attr/textAppearanceListItem" />
     </FrameLayout>
 

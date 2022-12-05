@@ -24,9 +24,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="@id/edit_room_left_guideline"
         app:layout_constraintRight_toLeftOf="@id/edit_room_right_guideline"
-        app:layout_constraintTop_toTopOf="@id/edit_room_top_guideline2">
-
-    </Spinner>
+        app:layout_constraintTop_toTopOf="@id/edit_room_top_guideline2"/>
 
     <Button
         android:id="@+id/edit_room_saveButton"

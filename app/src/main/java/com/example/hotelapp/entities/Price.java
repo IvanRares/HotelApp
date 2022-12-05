@@ -44,6 +44,14 @@ public class Price {
     @ColumnInfo(name = "Active", defaultValue = "1")
     private boolean active=true;
 
+    public Price(int roomTypeId, @NotNull String startDate, @NotNull String endDate, float priceValue, boolean isOffer) {
+        this.roomTypeId = roomTypeId;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.priceValue = priceValue;
+        this.isOffer = isOffer;
+    }
+
     public int getPriceId() {
         return PriceId;
     }

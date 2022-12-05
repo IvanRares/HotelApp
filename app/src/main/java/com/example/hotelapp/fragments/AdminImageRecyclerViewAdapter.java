@@ -96,6 +96,7 @@ public class AdminImageRecyclerViewAdapter extends RecyclerView.Adapter<AdminIma
     }
 
     public static void setImageViewWithByteArray(ImageView view, byte[] data) {
+        view.bringToFront();
         Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
         view.setImageBitmap(bitmap);
     }
