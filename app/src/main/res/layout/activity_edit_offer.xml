@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditOfferActivity">
+
+    <EditText
+        android:id="@+id/edit_offer_offerName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Name"
+        android:textColor="@color/black"
+        android:minHeight="48dp"
+        app:layout_constraintLeft_toLeftOf="@id/edit_offer_left_guideline"
+        app:layout_constraintRight_toLeftOf="@id/edit_offer_right_guideline"
+        app:layout_constraintTop_toTopOf="@id/edit_offer_top_guideline7" />
+
+    <TextView
+        android:id="@+id/edit_offer_dateTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Begin Date:"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintLeft_toLeftOf="@id/edit_offer_left_guideline"
+        app:layout_constraintRight_toLeftOf="@id/edit_offer_middle_guideline"
+        app:layout_constraintTop_toTopOf="@id/edit_offer_top_guideline1" />
+
+    <Button
+        android:id="@+id/edit_offer_datePickerButton"
+        style="?android:spinnerStyle"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Jan 01 2020"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintLeft_toLeftOf="@id/edit_offer_left_guideline"
+        app:layout_constraintRight_toLeftOf="@id/edit_offer_middle_guideline"
+        app:layout_constraintTop_toTopOf="@id/edit_offer_top_guideline2"/>
+
+    <TextView
+        android:id="@+id/edit_offer_endDateTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="End Date:"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintLeft_toLeftOf="@id/edit_offer_middle_guideline"
+        app:layout_constraintRight_toLeftOf="@id/edit_offer_right_guideline"
+        app:layout_constraintTop_toTopOf="@id/edit_offer_top_guideline1" />
+
+    <Button
+        android:id="@+id/edit_offer_endDatePickerButton"
+        style="?android:spinnerStyle"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Jan 01 2020"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintLeft_toLeftOf="@id/edit_offer_middle_guideline"
+        app:layout_constraintRight_toLeftOf="@id/edit_offer_right_guideline"
+        app:layout_constraintTop_toTopOf="@id/edit_offer_top_guideline2"/>
+
+    <EditText
+        android:id="@+id/edit_offer_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Price"
+        android:inputType="numberDecimal"
+        android:minHeight="48dp"
+        app:layout_constraintLeft_toLeftOf="@id/edit_offer_left_guideline"
+        app:layout_constraintRight_toLeftOf="@id/edit_offer_right_guideline"
+        app:layout_constraintTop_toTopOf="@id/edit_offer_top_guideline3" />
+
+    <Button
+        android:id="@+id/edit_offer_saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/edit_offer_left_guideline"
+        app:layout_constraintRight_toLeftOf="@id/edit_offer_right_guideline"
+        app:layout_constraintTop_toTopOf="@id/edit_offer_top_guideline5"
+        android:text="Save">
+
+    </Button>
+
+    <Spinner
+        android:id="@+id/edit_offer_roomTypes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/edit_offer_left_guideline"
+        app:layout_constraintRight_toLeftOf="@id/edit_offer_right_guideline"
+        app:layout_constraintTop_toTopOf="@id/edit_offer_top_guideline4"/>
+
+    <Button
+        android:id="@+id/edit_offer_deleteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/edit_offer_left_guideline"
+        app:layout_constraintRight_toLeftOf="@id/edit_offer_right_guideline"
+        app:layout_constraintTop_toTopOf="@id/edit_offer_top_guideline6"
+        android:visibility="gone"
+        android:text="Delete">
+
+    </Button>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/edit_offer_top_guideline7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.04" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/edit_offer_top_guideline1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.14" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/edit_offer_top_guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.24" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/edit_offer_top_guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.37" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/edit_offer_top_guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/edit_offer_top_guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.6" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/edit_offer_top_guideline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.7" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/edit_offer_left_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/edit_offer_right_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/edit_offer_middle_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,6 +10,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.hotelapp.access_objects.AmenityDao;
 import com.example.hotelapp.access_objects.ImageDao;
+import com.example.hotelapp.access_objects.OfferDao;
 import com.example.hotelapp.access_objects.PriceDao;
 import com.example.hotelapp.access_objects.RoomDao;
 import com.example.hotelapp.access_objects.RoomTypeDao;
@@ -37,6 +38,7 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract ImageDao imageDao();
     public abstract AmenityDao amenityDao();
     public abstract PriceDao priceDao();
+    public abstract OfferDao offerDao();
 
     private static volatile AppDatabase INSTANCE;
     public static synchronized AppDatabase getInstance(Context context){

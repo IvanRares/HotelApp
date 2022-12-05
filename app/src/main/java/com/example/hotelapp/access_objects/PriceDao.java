@@ -23,5 +23,5 @@ public interface PriceDao {
     void updatePrice(Price price);
 
     @Insert
-    void insertPrice(Price price);
+    long insertPrice(Price price);
 }

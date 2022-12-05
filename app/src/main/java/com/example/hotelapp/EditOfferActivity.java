@@ -14,12 +14,11 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 
-import com.example.hotelapp.entities.Amenity;
+import com.example.hotelapp.entities.Offer;
 import com.example.hotelapp.entities.Price;
-import com.example.hotelapp.entities.Room;
 import com.example.hotelapp.entities.RoomType;
+import com.example.hotelapp.pojos.OfferAndPrices;
 import com.example.hotelapp.pojos.PriceAndRoomTypes;
 import com.example.hotelapp.utils.InputFilterMin;
 
@@ -29,17 +28,18 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
-public class EditPriceActivity extends AppCompatActivity {
+public class EditOfferActivity extends AppCompatActivity {
     private DatePickerDialog datePickerDialog;
     private Button dateButton;
     private DatePickerDialog endDatePickerDialog;
     private Button endDateButton;
+    EditText offerName;
     EditText price;
     Spinner roomTypes;
     List<RoomType> roomTypeList;
     Button saveButton;
     Button deleteButton;
-    PriceAndRoomTypes item;
+    OfferAndPrices item;
     AppDatabase db;
     String option;
     int priceId;
@@ -47,9 +47,9 @@ public class EditPriceActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_price);
+        setContentView(R.layout.activity_edit_offer);
         initDatePicker(this);
-        dateButton = findViewById(R.id.edit_price_datePickerButton);
+        dateButton = findViewById(R.id.edit_offer_datePickerButton);
         dateButton.setText(getTodaysDate());
         dateButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,7 +57,7 @@ public class EditPriceActivity extends AppCompatActivity {
                 openDatePicker(v);
             }
         });
-        endDateButton = findViewById(R.id.edit_price_endDatePickerButton);
+        endDateButton = findViewById(R.id.edit_offer_endDatePickerButton);
         endDateButton.setText(getNextDayDate());
         endDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,11 +70,12 @@ public class EditPriceActivity extends AppCompatActivity {
         option = getIntent().getExtras().getString("Option");
         db = AppDatabase.getInstance(getApplicationContext());
         roomTypeList = db.roomTypeDao().getAllRoomTypes();
-        price = findViewById(R.id.edit_price_price);
+        offerName = findViewById(R.id.edit_offer_offerName);
+        price = findViewById(R.id.edit_offer_price);
         price.setFilters(new InputFilter[]{new InputFilterMin(0)});
-        saveButton = findViewById(R.id.edit_price_saveButton);
-        deleteButton = findViewById(R.id.edit_price_deleteButton);
-        roomTypes = findViewById(R.id.edit_price_roomTypes);
+        saveButton = findViewById(R.id.edit_offer_saveButton);
+        deleteButton = findViewById(R.id.edit_offer_deleteButton);
+        roomTypes = findViewById(R.id.edit_offer_roomTypes);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_room_type_item, R.id.spinner_room_type_item_roomTypeName, roomTypeList.stream().map(RoomType::getRoomTypeName).collect(Collectors.toList()));
         roomTypes.setAdapter(adapter);
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -91,9 +92,10 @@ public class EditPriceActivity extends AppCompatActivity {
         });
         if (option.equals("Edit")) {
             priceId = getIntent().getExtras().getInt("priceId");
-            item = db.priceDao().getPriceById(priceId);
+            item = db.offerDao().getOfferById(priceId);
             int pos = adapter.getPosition(item.roomType.getRoomTypeName());
             roomTypes.setSelection(pos);
+            offerName.setText(item.offer.getOfferName());
             dateButton.setText(item.price.getStartDate());
             endDateButton.setText(item.price.getEndDate());
             price.setText(Float.toString(item.price.getPriceValue()));
@@ -108,12 +110,13 @@ public class EditPriceActivity extends AppCompatActivity {
     }
 
     private boolean isEmpty() {
-        return (price.getText().toString().isEmpty());
+        return (price.getText().toString().isEmpty() || offerName.getText().toString().isEmpty());
     }
 
     private void Save() {
         if (!isEmpty()) {
             if (option.equals("Edit")) {
+                item.offer.setOfferName(offerName.getText().toString());
                 item.price.setPriceValue(Float.parseFloat(price.getText().toString()));
                 item.price.setStartDate(dateButton.getText().toString());
                 item.price.setEndDate(endDateButton.getText().toString());
@@ -121,11 +124,14 @@ public class EditPriceActivity extends AppCompatActivity {
                 int roomTypeId = roomTypeList.stream().filter(x -> x.getRoomTypeName().equals(selectedRoomType)).findFirst().get().getRoomTypeId();
                 item.price.setRoomTypeId(roomTypeId);
                 db.priceDao().updatePrice(item.price);
+                db.offerDao().updateOffer(item.offer);
+
 
             } else {
                 String selectedRoomType = roomTypes.getSelectedItem().toString();
                 int roomTypeId = roomTypeList.stream().filter(x -> x.getRoomTypeName().equals(selectedRoomType)).findFirst().get().getRoomTypeId();
-                db.priceDao().insertPrice(new Price(roomTypeId, dateButton.getText().toString(), endDateButton.getText().toString(), Float.parseFloat(price.getText().toString()), false));
+                int priceId=(int)db.priceDao().insertPrice(new Price(roomTypeId, dateButton.getText().toString(), endDateButton.getText().toString(), Float.parseFloat(price.getText().toString()), true));
+                db.offerDao().insertOffer(new Offer(priceId,offerName.getText().toString()));
             }
             finish();
         }
@@ -134,6 +140,8 @@ public class EditPriceActivity extends AppCompatActivity {
     private void Delete() {
         item.price.setActive(false);
         db.priceDao().updatePrice(item.price);
+        item.offer.setActive(false);
+        db.offerDao().updateOffer(item.offer);
         finish();
     }
 

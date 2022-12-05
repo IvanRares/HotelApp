@@ -24,10 +24,15 @@ public class Offer {
 
     @ColumnInfo(name = "OfferName")
     @NotNull
-    private String OfferName;
+    private String offerName;
 
     @ColumnInfo(name = "Active", defaultValue = "1")
     private boolean active=true;
+
+    public Offer(int priceId, @NotNull String offerName) {
+        this.priceId = priceId;
+        this.offerName = offerName;
+    }
 
     public int getOfferId() {
         return OfferId;
@@ -47,11 +52,11 @@ public class Offer {
 
     @NotNull
     public String getOfferName() {
-        return OfferName;
+        return offerName;
     }
 
     public void setOfferName(@NotNull String offerName) {
-        OfferName = offerName;
+        this.offerName = offerName;
     }
 
     public boolean isActive() {
