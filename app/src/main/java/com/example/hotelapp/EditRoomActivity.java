@@ -4,6 +4,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.hotelapp.entities.Room;
 import com.example.hotelapp.entities.RoomType;
@@ -85,7 +87,12 @@ public class EditRoomActivity extends AppCompatActivity {
             } else {
                 String selectedRoomType = roomTypes.getSelectedItem().toString();
                 int roomTypeId = roomTypeList.stream().filter(x -> x.getRoomTypeName().equals(selectedRoomType)).findFirst().get().getRoomTypeId();
-                db.roomDao().insertRoom(new Room(roomTypeId, roomName.getText().toString()));
+                try {
+                    db.roomDao().insertRoom(new Room(roomTypeId, roomName.getText().toString()));
+                }
+                catch (SQLiteException e){
+                    Toast.makeText(this, "Room name already exists", Toast.LENGTH_SHORT).show();
+                }
             }
             finish();
         }

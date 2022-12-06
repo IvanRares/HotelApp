@@ -39,6 +39,12 @@ public class User {
     @ColumnInfo(name = "Active", defaultValue = "1")
     private boolean active=true;
 
+    public User(int typeId, @NotNull String username, @NotNull String password) {
+        this.typeId = typeId;
+        this.username = username;
+        this.password = password;
+    }
+
     public int getUserId() {
         return UserId;
     }

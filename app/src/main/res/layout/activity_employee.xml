@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ClientActivity"
-    android:id="@+id/admin_activity">
-
+    tools:context=".EmployeeActivity"
+    android:id="@+id/employee_activity">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -14,9 +13,11 @@
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragmentContainerView2"
-            android:name="com.example.hotelapp.fragments.AdminRoomFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:name="com.example.hotelapp.fragments.RoomsFragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
 
 
     </RelativeLayout>
@@ -29,5 +30,4 @@
         android:id="@+id/nv">
 
     </com.google.android.material.navigation.NavigationView>
-
 </androidx.drawerlayout.widget.DrawerLayout>

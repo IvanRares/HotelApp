@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Transaction;
 import androidx.room.Update;
 
 import com.example.hotelapp.entities.Price;
@@ -13,9 +14,11 @@ import java.util.List;
 
 @Dao
 public interface PriceDao {
+    @Transaction
     @Query("SELECT * from Prices WHERE Active = 1 AND IsOffer = 0")
     LiveData<List<PriceAndRoomTypes>> getPrices();
 
+    @Transaction
     @Query("SELECT * from Prices WHERE PriceId LIKE:id")
     PriceAndRoomTypes getPriceById(int id);
 

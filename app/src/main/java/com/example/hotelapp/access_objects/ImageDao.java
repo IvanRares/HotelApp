@@ -17,6 +17,7 @@ public interface ImageDao {
     @Query("SELECT ImageData from Images WHERE RoomTypeId=:id")
     List<byte[]> getImagesDataForRoomType(int id);
 
+    @Transaction
     @Query("SELECT * from Images WHERE Active = 1")
     LiveData<List<ImageAndRoomType>> getImages();
 
