@@ -6,7 +6,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.RoomsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
 
 
     <TextView
@@ -56,10 +55,14 @@
         app:layout_constraintTop_toTopOf="@id/fragment_rooms_top_guideline2"/>
 
 
-
-
-
-
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/fragment_rooms_recyclerView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:listitem="@layout/fragment_guest_room_item"
+        app:layout_constraintLeft_toLeftOf="@id/fragment_rooms_left_guideline"
+        app:layout_constraintRight_toLeftOf="@id/fragment_rooms_right_guideline"
+        app:layout_constraintTop_toBottomOf="@id/fragment_rooms_top_guideline3"></androidx.recyclerview.widget.RecyclerView>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/fragment_rooms_top_guideline1"

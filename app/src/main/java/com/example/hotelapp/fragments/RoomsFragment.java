@@ -6,6 +6,9 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,9 +16,17 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 
+import com.example.hotelapp.AppDatabase;
 import com.example.hotelapp.R;
+import com.example.hotelapp.entities.RoomType;
+import com.example.hotelapp.pojos.RoomTypeAndImage;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,23 +34,25 @@ import java.util.Calendar;
  * create an instance of this fragment.
  */
 public class RoomsFragment extends Fragment {
-
+    private static final String ARG_COLUMN_COUNT = "column-count";
     private DatePickerDialog datePickerDialog;
     private Button dateButton;
     private DatePickerDialog endDatePickerDialog;
     private Button endDateButton;
-
+    private String startDate;
+    private String endDate;
+    private int mColumnCount = 1;
+    private HashMap<RoomTypeAndImage,String> roomTypeCountAndImage=new HashMap<RoomTypeAndImage,String>();
 
     public RoomsFragment() {
         // Required empty public constructor
     }
 
 
-    public static RoomsFragment newInstance() {
+    public static RoomsFragment newInstance(int columnCount) {
         RoomsFragment fragment = new RoomsFragment();
         Bundle args = new Bundle();
-
-
+        args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
         return fragment;
     }
@@ -61,6 +74,8 @@ public class RoomsFragment extends Fragment {
         // Inflate the layout for this fragment
         View v=inflater.inflate(R.layout.fragment_rooms, container, false);
         initDatePicker(v.getContext());
+        RecyclerView recyclerView=v.findViewById(R.id.fragment_rooms_recyclerView);
+        updateRoomTypeCount();
         dateButton = v.findViewById(R.id.fragment_rooms_datePickerButton);
         dateButton.setText(getTodaysDate());
         dateButton.setOnClickListener(new View.OnClickListener()
@@ -81,6 +96,15 @@ public class RoomsFragment extends Fragment {
                 openEndDatePicker(v);
             }
         });
+        if (recyclerView instanceof RecyclerView) {
+            Context context = v.getContext();
+            if (mColumnCount <= 1) {
+                recyclerView.setLayoutManager(new LinearLayoutManager(context));
+            } else {
+                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+            }
+            recyclerView.setAdapter(new RoomRecyclerViewAdapter(roomTypeCountAndImage,context));
+        }
         return v;
     }
 
@@ -115,10 +139,15 @@ public class RoomsFragment extends Fragment {
                 String date = makeDateString(day, month, year);
                     Calendar callendar=Calendar.getInstance();
                     dateButton.setText(date);
-                    day=day+1;
                     callendar.set(year,month-1,day);
-                    endDateButton.setText(makeDateString(day,month,year));
+                    endDateButton.setText(makeDateString(day+1,month,year));
                     endDatePickerDialog.getDatePicker().setMinDate(callendar.getTimeInMillis());
+                String format = "yyyy-MM-dd";
+                SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.ENGLISH);
+                startDate=sdf.format(callendar.getTime());
+                callendar.set(year,month-1,day+1);
+                endDate=sdf.format(callendar.getTime());
+                updateRoomTypeCount();
 
 
 
@@ -135,6 +164,13 @@ public class RoomsFragment extends Fragment {
                 String date = makeDateString(day, month, year);
 
                     endDateButton.setText(date);
+                Calendar callendar=Calendar.getInstance();
+
+                String format = "yyyy-MM-dd";
+                callendar.set(year,month-1,day);
+                SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.ENGLISH);
+                endDate=sdf.format(callendar.getTime());
+                updateRoomTypeCount();
 
             }
         };
@@ -146,13 +182,17 @@ public class RoomsFragment extends Fragment {
 
         int style = AlertDialog.THEME_HOLO_LIGHT;
 
+        String format = "yyyy-MM-dd";
+        SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.ENGLISH);
 
-        cal.set(year+1,month,day);
+        cal.set(year,month,day);
+        startDate=sdf.format(cal.getTime());
         datePickerDialog = new DatePickerDialog(context, style, dateSetListener, year, month, day);
         endDatePickerDialog = new DatePickerDialog(context, style, endDateSetListener, year, month, day);
         datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis()-1000);
-        datePickerDialog.getDatePicker().setMaxDate(cal.getTimeInMillis());
-        cal.set(year+1,month,day+1);
+        cal.set(year,month,day+1);
+        endDate=sdf.format(cal.getTime());
+
         endDatePickerDialog.getDatePicker().setMinDate(cal.getTimeInMillis());
 
 
@@ -202,6 +242,16 @@ public class RoomsFragment extends Fragment {
     public void openEndDatePicker(View view)
     {
         endDatePickerDialog.show();
+    }
+    public void updateRoomTypeCount(){
+        AppDatabase db=AppDatabase.getInstance(getContext());
+
+        List<RoomTypeAndImage> roomTypes=db.roomTypeDao().getRoomTypes();
+        for (RoomTypeAndImage roomType:roomTypes) {
+            int count= db.roomTypeDao().getEmptyRoomsForRoomType(startDate,endDate,roomType.roomType.getRoomTypeId());
+            roomTypeCountAndImage.put(roomType,String.valueOf(count));
+
+        }
     }
 
 }
