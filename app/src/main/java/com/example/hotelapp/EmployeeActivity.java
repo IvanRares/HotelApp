@@ -8,6 +8,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.hotelapp.fragments.OffersFragment;
@@ -25,7 +26,7 @@ public class EmployeeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee);
         dl = (DrawerLayout) findViewById(R.id.employee_activity);
-        t = new ActionBarDrawerToggle(this, dl,R.string.Open,R.string.Close);
+        t = new ActionBarDrawerToggle(this, dl, R.string.Open, R.string.Close);
 
         dl.addDrawerListener(t);
         t.syncState();
@@ -33,16 +34,15 @@ public class EmployeeActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         nv = (NavigationView) findViewById(R.id.nv);
-
+        hideItems();
         nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
-                FragmentManager fragmentManager=getSupportFragmentManager();
-                switch(id)
-                {
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                switch (id) {
                     case R.id.navigation_offers:
-                        fragmentManager.beginTransaction().replace(R.id.fragmentContainerView2, OffersFragment.class,null)
+                        fragmentManager.beginTransaction().replace(R.id.fragmentContainerView2, OffersFragment.class, null)
                                 .setReorderingAllowed(true)
                                 .addToBackStack("name")
                                 .commit();
@@ -56,7 +56,7 @@ public class EmployeeActivity extends AppCompatActivity {
                         break;
 
                     case R.id.navigation_rooms:
-                        fragmentManager.beginTransaction().replace(R.id.fragmentContainerView2, RoomsFragment.class,null)
+                        fragmentManager.beginTransaction().replace(R.id.fragmentContainerView2, RoomsFragment.class, null)
                                 .setReorderingAllowed(true)
                                 .addToBackStack("name")
                                 .commit();
@@ -69,15 +69,21 @@ public class EmployeeActivity extends AppCompatActivity {
                 return true;
 
 
-
             }
         });
 
     }
+
+    private void hideItems() {
+        Menu navMenu = nv.getMenu();
+        navMenu.findItem(R.id.navigation_amenities).setVisible(false);
+        navMenu.findItem(R.id.navigation_images).setVisible(false);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if(t.onOptionsItemSelected(item))
+        if (t.onOptionsItemSelected(item))
             return true;
 
         return super.onOptionsItemSelected(item);

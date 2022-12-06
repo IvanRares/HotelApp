@@ -1,17 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/navigation_rooms"
-        android:title="Rooms"/>
-    <item android:id="@+id/navigation_offers"
-        android:title="Offers"/>
-    <item android:id="@+id/navigation_roomTypes"
-        android:title="Room Types"/>
-    <item android:id="@+id/navigation_prices"
-        android:title="Prices"/>
-    <item android:id="@+id/navigation_images"
-        android:title="Images"/>
-    <item android:id="@+id/navigation_amenities"
-        android:title="Amenities"/>
+    <item
+        android:id="@+id/navigation_rooms"
+        android:title="Rooms" />
+    <item
+        android:id="@+id/navigation_offers"
+        android:title="Offers" />
+    <item
+        android:id="@+id/navigation_roomTypes"
+        android:title="Room Types" />
+    <item
+        android:id="@+id/navigation_prices"
+        android:title="Prices" />
+    <item
+        android:id="@+id/navigation_images"
+        android:title="Images" />
+    <item
+        android:id="@+id/navigation_amenities"
+        android:title="Amenities" />
+    <item
+        android:id="@+id/navigation_bookings"
+        android:title="Bookings" />
 
 </menu>

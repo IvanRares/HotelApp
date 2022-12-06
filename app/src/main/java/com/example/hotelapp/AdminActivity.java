@@ -8,6 +8,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.hotelapp.fragments.AdminAmenityFragment;
@@ -41,7 +42,7 @@ public class AdminActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         nv = (NavigationView) findViewById(R.id.nv);
-
+        hideItems();
         nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -100,6 +101,12 @@ public class AdminActivity extends AppCompatActivity {
         });
 
     }
+
+    private void hideItems() {
+        Menu navMenu=nv.getMenu();
+        navMenu.findItem(R.id.navigation_bookings).setVisible(false);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
