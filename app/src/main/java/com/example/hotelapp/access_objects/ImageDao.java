@@ -21,6 +21,7 @@ public interface ImageDao {
     @Query("SELECT * from Images WHERE Active = 1")
     LiveData<List<ImageAndRoomType>> getImages();
 
+    @Transaction
     @Query("SELECT * FROM Images WHERE ImageId LIKE:id")
     ImageAndRoomType getImageById(int id);
 

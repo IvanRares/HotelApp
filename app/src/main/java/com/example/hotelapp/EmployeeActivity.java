@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.hotelapp.fragments.EmployeeBookingFragment;
 import com.example.hotelapp.fragments.OffersFragment;
 import com.example.hotelapp.fragments.RoomTypesFragment;
 import com.example.hotelapp.fragments.RoomsFragment;
@@ -57,6 +58,12 @@ public class EmployeeActivity extends AppCompatActivity {
 
                     case R.id.navigation_rooms:
                         fragmentManager.beginTransaction().replace(R.id.fragmentContainerView2, RoomsFragment.class, null)
+                                .setReorderingAllowed(true)
+                                .addToBackStack("name")
+                                .commit();
+                        break;
+                    case R.id.navigation_bookings:
+                        fragmentManager.beginTransaction().replace(R.id.fragmentContainerView2, EmployeeBookingFragment.class, null)
                                 .setReorderingAllowed(true)
                                 .addToBackStack("name")
                                 .commit();
