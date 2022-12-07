@@ -1,5 +1,7 @@
 package com.example.hotelapp.fragments;
 
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,12 +14,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.DatePicker;
 
 import com.example.hotelapp.AppDatabase;
 import com.example.hotelapp.EditOfferActivity;
 import com.example.hotelapp.EditPriceActivity;
 import com.example.hotelapp.R;
+import com.example.hotelapp.pojos.RoomTypeAndImage;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +39,13 @@ public class ClientPriceFragment extends Fragment {
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
     private int mColumnCount = 1;
+    private DatePickerDialog datePickerDialog;
+    private Button dateButton;
+    private DatePickerDialog endDatePickerDialog;
+    private Button endDateButton;
+    private String startDate;
+    private String endDate;
+    private View view;
 
     public ClientPriceFragment() {
         // Required empty public constructor
@@ -56,9 +73,30 @@ public class ClientPriceFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_client_price, container, false);
+        view = inflater.inflate(R.layout.fragment_client_price, container, false);
+        initDatePicker(view.getContext());
         RecyclerView recyclerView=view.findViewById(R.id.client_price_list);
         AppDatabase db=AppDatabase.getInstance(getContext());
+        dateButton = view.findViewById(R.id.fragment_client_price_datePickerButton);
+        dateButton.setText(getTodaysDate());
+        dateButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                openDatePicker(v);
+            }
+        });
+        endDateButton = view.findViewById(R.id.fragment_client_price_endDatePickerButton);
+        endDateButton.setText(getNextDayDate());
+        endDateButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                openEndDatePicker(v);
+            }
+        });
         // Set the adapter
         if (recyclerView instanceof RecyclerView) {
             Context context = view.getContext();
@@ -68,10 +106,156 @@ public class ClientPriceFragment extends Fragment {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
             ClientPriceRecyclerViewAdapter adapter=new ClientPriceRecyclerViewAdapter(getContext());
-            db.priceDao().getPrices().observe(getViewLifecycleOwner(),data->adapter.setData(data));
+            db.priceDao().getPricesByDate(startDate,endDate).observe(getViewLifecycleOwner(),data->adapter.setData(data));
             recyclerView.setAdapter(adapter);
         }
 
         return view;
+    }
+
+
+    private String getTodaysDate()
+    {
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        month = month + 1;
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        return makeDateString(day, month, year);
+    }
+    private String getNextDayDate()
+    {
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        month = month + 1;
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        day+=1;
+        return makeDateString(day, month, year);
+    }
+
+    private void initDatePicker(Context context)
+    {
+        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener()
+        {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day)
+            {
+                month = month + 1;
+                String date = makeDateString(day, month, year);
+                Calendar callendar=Calendar.getInstance();
+                dateButton.setText(date);
+                callendar.set(year,month-1,day);
+                endDateButton.setText(makeDateString(day+1,month,year));
+                endDatePickerDialog.getDatePicker().setMinDate(callendar.getTimeInMillis());
+                String format = "yyyy-MM-dd";
+                SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.ENGLISH);
+                startDate=sdf.format(callendar.getTime());
+                callendar.set(year,month-1,day+1);
+                endDate=sdf.format(callendar.getTime());
+
+                AppDatabase db=AppDatabase.getInstance(getContext());
+                RecyclerView recyclerView=view.findViewById(R.id.client_price_list);
+                ClientPriceRecyclerViewAdapter adapter=new ClientPriceRecyclerViewAdapter(getContext());
+                db.priceDao().getPricesByDate(startDate,endDate).observe(getViewLifecycleOwner(),data->adapter.setData(data));
+                recyclerView.setAdapter(adapter);
+
+
+
+
+            }
+        };
+        DatePickerDialog.OnDateSetListener endDateSetListener = new DatePickerDialog.OnDateSetListener()
+        {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day)
+            {
+                month = month + 1;
+                String date = makeDateString(day, month, year);
+
+                endDateButton.setText(date);
+                Calendar callendar=Calendar.getInstance();
+
+                String format = "yyyy-MM-dd";
+                callendar.set(year,month-1,day);
+                SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.ENGLISH);
+                endDate=sdf.format(callendar.getTime());
+
+                AppDatabase db=AppDatabase.getInstance(getContext());
+                RecyclerView recyclerView=view.findViewById(R.id.client_price_list);
+                ClientPriceRecyclerViewAdapter adapter=new ClientPriceRecyclerViewAdapter(getContext());
+                db.priceDao().getPricesByDate(startDate,endDate).observe(getViewLifecycleOwner(),data->adapter.setData(data));
+                recyclerView.setAdapter(adapter);
+
+            }
+        };
+
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+
+        int style = AlertDialog.THEME_HOLO_LIGHT;
+
+        String format = "yyyy-MM-dd";
+        SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.ENGLISH);
+
+        cal.set(year,month,day);
+        startDate=sdf.format(cal.getTime());
+        datePickerDialog = new DatePickerDialog(context, style, dateSetListener, year, month, day);
+        endDatePickerDialog = new DatePickerDialog(context, style, endDateSetListener, year, month, day);
+        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis()-1000);
+        cal.set(year,month,day+1);
+        endDate=sdf.format(cal.getTime());
+
+        endDatePickerDialog.getDatePicker().setMinDate(cal.getTimeInMillis());
+
+
+
+    }
+
+    private String makeDateString(int day, int month, int year)
+    {
+        return getMonthFormat(month) + " " + day + " " + year;
+    }
+
+    private String getMonthFormat(int month)
+    {
+        if(month == 1)
+            return "JAN";
+        if(month == 2)
+            return "FEB";
+        if(month == 3)
+            return "MAR";
+        if(month == 4)
+            return "APR";
+        if(month == 5)
+            return "MAY";
+        if(month == 6)
+            return "JUN";
+        if(month == 7)
+            return "JUL";
+        if(month == 8)
+            return "AUG";
+        if(month == 9)
+            return "SEP";
+        if(month == 10)
+            return "OCT";
+        if(month == 11)
+            return "NOV";
+        if(month == 12)
+            return "DEC";
+
+        //default should never happen
+        return "JAN";
+    }
+
+    public void openDatePicker(View view)
+    {
+        datePickerDialog.show();
+    }
+    public void openEndDatePicker(View view)
+    {
+        endDatePickerDialog.show();
     }
 }
