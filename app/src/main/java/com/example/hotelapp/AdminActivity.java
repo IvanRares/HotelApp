@@ -17,9 +17,6 @@ import com.example.hotelapp.fragments.AdminOfferFragment;
 import com.example.hotelapp.fragments.AdminPriceFragment;
 import com.example.hotelapp.fragments.AdminRoomFragment;
 import com.example.hotelapp.fragments.AdminRoomTypesFragment;
-import com.example.hotelapp.fragments.OffersFragment;
-import com.example.hotelapp.fragments.RoomTypesFragment;
-import com.example.hotelapp.fragments.RoomsFragment;
 import com.google.android.material.navigation.NavigationView;
 
 public class AdminActivity extends AppCompatActivity {

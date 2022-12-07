@@ -12,7 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.hotelapp.fragments.EmployeeBookingFragment;
-import com.example.hotelapp.fragments.OffersFragment;
+import com.example.hotelapp.fragments.ClientOffersFragment;
 import com.example.hotelapp.fragments.RoomTypesFragment;
 import com.example.hotelapp.fragments.RoomsFragment;
 import com.google.android.material.navigation.NavigationView;
@@ -43,7 +43,7 @@ public class EmployeeActivity extends AppCompatActivity {
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 switch (id) {
                     case R.id.navigation_offers:
-                        fragmentManager.beginTransaction().replace(R.id.fragmentContainerView2, OffersFragment.class, null)
+                        fragmentManager.beginTransaction().replace(R.id.fragmentContainerView2, ClientOffersFragment.class, null)
                                 .setReorderingAllowed(true)
                                 .addToBackStack("name")
                                 .commit();

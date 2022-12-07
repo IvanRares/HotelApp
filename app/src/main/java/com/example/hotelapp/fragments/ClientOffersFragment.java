@@ -12,10 +12,10 @@ import com.example.hotelapp.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link OffersFragment#newInstance} factory method to
+ * Use the {@link ClientOffersFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class OffersFragment extends Fragment {
+public class ClientOffersFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +26,7 @@ public class OffersFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public OffersFragment() {
+    public ClientOffersFragment() {
         // Required empty public constructor
     }
 
@@ -39,8 +39,8 @@ public class OffersFragment extends Fragment {
      * @return A new instance of fragment OffersFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static OffersFragment newInstance(String param1, String param2) {
-        OffersFragment fragment = new OffersFragment();
+    public static ClientOffersFragment newInstance(String param1, String param2) {
+        ClientOffersFragment fragment = new ClientOffersFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
