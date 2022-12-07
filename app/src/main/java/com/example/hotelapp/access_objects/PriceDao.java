@@ -22,6 +22,12 @@ public interface PriceDao {
     @Query("SELECT * from Prices WHERE PriceId LIKE:id")
     PriceAndRoomTypes getPriceById(int id);
 
+    @Transaction
+    @Query(" select * from Prices\n" +
+            "    where (not(date(EndDate)<date(:arrivalDate) or date(StartDate)>date(:departureDate)))\n" +
+            "    and Active = 1 and IsOffer=0")
+    LiveData<List<PriceAndRoomTypes>> getPricesByDate(String arrivalDate,String departureDate);
+
     @Update
     void updatePrice(Price price);
 

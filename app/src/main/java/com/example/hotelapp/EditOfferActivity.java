@@ -206,9 +206,8 @@ public class EditOfferActivity extends AppCompatActivity {
         datePickerDialog = new DatePickerDialog(context, style, dateSetListener, year, month, day);
         endDatePickerDialog = new DatePickerDialog(context, style, endDateSetListener, year, month, day);
         datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
-        datePickerDialog.getDatePicker().setMaxDate(cal.getTimeInMillis());
-        cal.set(year + 1, month, day + 1);
-        endDatePickerDialog.getDatePicker().setMinDate(cal.getTimeInMillis());
+        cal.set(year + 1, month, day+1);
+        endDatePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
 
 
     }
