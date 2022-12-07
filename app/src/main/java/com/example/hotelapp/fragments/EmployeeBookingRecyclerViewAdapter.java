@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.hotelapp.AppDatabase;
 import com.example.hotelapp.EditRoomTypeActivity;
+import com.example.hotelapp.EmployeeBookingActivity;
 import com.example.hotelapp.R;
 import com.example.hotelapp.entities.Room;
 import com.example.hotelapp.entities.RoomType;
@@ -105,6 +106,14 @@ public class EmployeeBookingRecyclerViewAdapter extends RecyclerView.Adapter<Emp
             holder.mRoomList.setAdapter(adapter);
             holder.mTotalPrice.setText(Float.toString(holder.mItem.booking.getTotalPrice()));
             holder.mState.setText(holder.mItem.state.getStateName());
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i = new Intent(mContext, EmployeeBookingActivity.class);
+                    i.putExtra("bookingId", holder.mItem.booking.getBookingId());
+                    mContext.startActivity(i);
+                }
+            });
         }
     }
 

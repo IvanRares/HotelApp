@@ -4,7 +4,9 @@ import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Query;
 import androidx.room.Transaction;
+import androidx.room.Update;
 
+import com.example.hotelapp.entities.Booking;
 import com.example.hotelapp.entities.Room;
 import com.example.hotelapp.entities.RoomType;
 import com.example.hotelapp.pojos.BookingsAndUsers;
@@ -20,4 +22,11 @@ public interface BookingDao {
 
     @Query("SELECT * from Rooms JOIN BookingRooms ON BookingRooms.RoomId=Rooms.RoomId WHERE BookingId LIKE:id")
     List<Room> getRoomsByBooking(int id);
+
+    @Transaction
+    @Query("SELECT * from Bookings WHERE BookingId LIKE:id")
+    BookingsAndUsers getBookingById(int id);
+
+    @Update
+    void updateBooking(Booking booking);
 }

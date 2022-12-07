@@ -15,6 +15,7 @@ import com.example.hotelapp.access_objects.OfferDao;
 import com.example.hotelapp.access_objects.PriceDao;
 import com.example.hotelapp.access_objects.RoomDao;
 import com.example.hotelapp.access_objects.RoomTypeDao;
+import com.example.hotelapp.access_objects.StateDao;
 import com.example.hotelapp.access_objects.UserDao;
 import com.example.hotelapp.entities.Amenity;
 import com.example.hotelapp.entities.AmenityBooking;
@@ -41,6 +42,7 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract PriceDao priceDao();
     public abstract OfferDao offerDao();
     public abstract BookingDao bookingDao();
+    public abstract StateDao stateDao();
 
     private static volatile AppDatabase INSTANCE;
     public static synchronized AppDatabase getInstance(Context context){
