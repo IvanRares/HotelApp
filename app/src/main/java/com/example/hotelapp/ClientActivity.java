@@ -19,6 +19,8 @@ import com.example.hotelapp.fragments.RoomTypesFragment;
 import com.example.hotelapp.fragments.RoomsFragment;
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.Optional;
+
 public class ClientActivity extends AppCompatActivity {
 
     private DrawerLayout dl;
@@ -26,6 +28,7 @@ public class ClientActivity extends AppCompatActivity {
     private NavigationView nv;
     private User currentUser;
     private AppDatabase db;
+    private int userId;
 
 
     @Override
@@ -33,12 +36,14 @@ public class ClientActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client);
 
-        db=AppDatabase.getInstance(this);
-        int userId=getIntent().getExtras().getInt("userId");
-        currentUser=db.userDao().getUserById(userId);
+        db = AppDatabase.getInstance(this);
+        if(getIntent().getExtras()!=null) {
+            userId = getIntent().getExtras().getInt("userId");
+            currentUser = db.userDao().getUserById(userId);
+        }
 
         dl = (DrawerLayout) findViewById(R.id.client_activity);
-        t = new ActionBarDrawerToggle(this, dl,R.string.Open,R.string.Close);
+        t = new ActionBarDrawerToggle(this, dl, R.string.Open, R.string.Close);
 
         dl.addDrawerListener(t);
         t.syncState();
@@ -51,11 +56,10 @@ public class ClientActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
-                FragmentManager fragmentManager=getSupportFragmentManager();
-                switch(id)
-                {
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                switch (id) {
                     case R.id.navigation_offers:
-                        fragmentManager.beginTransaction().replace(R.id.fragmentContainerView2, ClientOffersFragment.class,null)
+                        fragmentManager.beginTransaction().replace(R.id.fragmentContainerView2, ClientOffersFragment.class, null)
                                 .setReorderingAllowed(true)
                                 .addToBackStack("name")
                                 .commit();
@@ -69,19 +73,19 @@ public class ClientActivity extends AppCompatActivity {
                         break;
 
                     case R.id.navigation_rooms:
-                        fragmentManager.beginTransaction().replace(R.id.fragmentContainerView2, RoomsFragment.class,null)
+                        fragmentManager.beginTransaction().replace(R.id.fragmentContainerView2, RoomsFragment.class, null)
                                 .setReorderingAllowed(true)
                                 .addToBackStack("name")
                                 .commit();
                         break;
                     case R.id.navigation_prices:
-                        fragmentManager.beginTransaction().replace(R.id.fragmentContainerView2, ClientPriceFragment.class,null)
+                        fragmentManager.beginTransaction().replace(R.id.fragmentContainerView2, ClientPriceFragment.class, null)
                                 .setReorderingAllowed(true)
                                 .addToBackStack("name")
                                 .commit();
                         break;
                     case R.id.navigation_makeBooking:
-                        Intent i=new Intent(getApplicationContext(),ClientMakeBookingActivity.class);
+                        Intent i = new Intent(getApplicationContext(), ClientMakeBookingActivity.class);
                         startActivity(i);
                         break;
                     default:
@@ -92,22 +96,25 @@ public class ClientActivity extends AppCompatActivity {
                 return true;
 
 
-
             }
         });
 
     }
 
     private void hideItems() {
-        Menu navMenu=nv.getMenu();
+        Menu navMenu = nv.getMenu();
         navMenu.findItem(R.id.navigation_amenities).setVisible(false);
         navMenu.findItem(R.id.navigation_images).setVisible(false);
+        if (getIntent().getExtras()==null) {
+            navMenu.findItem(R.id.navigation_makeBooking).setVisible(false);
+            navMenu.findItem(R.id.navigation_logout).setTitle("Exit");
+        }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if(t.onOptionsItemSelected(item))
+        if (t.onOptionsItemSelected(item))
             return true;
 
         return super.onOptionsItemSelected(item);
