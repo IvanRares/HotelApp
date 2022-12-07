@@ -1,14 +1,23 @@
 package com.example.hotelapp.fragments;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.hotelapp.AppDatabase;
+import com.example.hotelapp.EditOfferActivity;
+import com.example.hotelapp.EditPriceActivity;
 import com.example.hotelapp.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,33 +26,20 @@ import com.example.hotelapp.R;
  */
 public class ClientPriceFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private static final String ARG_COLUMN_COUNT = "column-count";
+    // TODO: Customize parameters
+    private int mColumnCount = 1;
 
     public ClientPriceFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ClientPriceFragment.
-     */
+
     // TODO: Rename and change types and number of parameters
-    public static ClientPriceFragment newInstance(String param1, String param2) {
+    public static ClientPriceFragment newInstance(int columnCount) {
         ClientPriceFragment fragment = new ClientPriceFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
         return fragment;
     }
@@ -52,8 +48,7 @@ public class ClientPriceFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
     }
 
@@ -61,6 +56,22 @@ public class ClientPriceFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_client_price, container, false);
+        View view = inflater.inflate(R.layout.fragment_client_price, container, false);
+        RecyclerView recyclerView=view.findViewById(R.id.client_price_list);
+        AppDatabase db=AppDatabase.getInstance(getContext());
+        // Set the adapter
+        if (recyclerView instanceof RecyclerView) {
+            Context context = view.getContext();
+            if (mColumnCount <= 1) {
+                recyclerView.setLayoutManager(new LinearLayoutManager(context));
+            } else {
+                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+            }
+            ClientPriceRecyclerViewAdapter adapter=new ClientPriceRecyclerViewAdapter(getContext());
+            db.priceDao().getPrices().observe(getViewLifecycleOwner(),data->adapter.setData(data));
+            recyclerView.setAdapter(adapter);
+        }
+
+        return view;
     }
 }
