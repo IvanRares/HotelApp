@@ -17,6 +17,9 @@ public interface AmenityDao {
     @Query("SELECT * from Amenities WHERE Active = 1")
     LiveData<List<Amenity>> getAmenities();
 
+    @Query("SELECT * from Amenities WHERE Active = 1")
+    List<Amenity> getAllAmenities();
+
     @Query("SELECT * FROM Amenities WHERE AmenityId LIKE:id")
     Amenity getAmenityById(int id);
 

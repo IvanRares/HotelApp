@@ -64,6 +64,7 @@ public class LoginActivity extends AppCompatActivity {
                     break;
                 case "Client":
                     i = new Intent(this, ClientActivity.class);
+                    i.putExtra("userId", user.user.getUserId());
                     startActivity(i);
                     break;
                 default:
@@ -75,15 +76,14 @@ public class LoginActivity extends AppCompatActivity {
 
     private void Register() {
         if (!isEmpty()) {
-            boolean success=false;
+            boolean success = false;
             try {
                 db.userDao().insertUser(new User(3, usernameInput.getText().toString(), passwordInput.getText().toString()));
-                success=true;
-            }
-            catch (SQLiteException e){
+                success = true;
+            } catch (SQLiteException e) {
                 Toast.makeText(this, "Username already exists!", Toast.LENGTH_SHORT).show();
             }
-            if(success) {
+            if (success) {
                 Intent i = new Intent(this, ClientActivity.class);
                 startActivity(i);
                 finish();

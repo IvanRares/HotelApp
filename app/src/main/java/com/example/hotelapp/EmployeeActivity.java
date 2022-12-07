@@ -85,6 +85,7 @@ public class EmployeeActivity extends AppCompatActivity {
         Menu navMenu = nv.getMenu();
         navMenu.findItem(R.id.navigation_amenities).setVisible(false);
         navMenu.findItem(R.id.navigation_images).setVisible(false);
+        navMenu.findItem(R.id.navigation_makeBooking).setVisible(false);
     }
 
     @Override

@@ -14,9 +14,12 @@ import java.util.Optional;
 public interface UserDao {
 
     @Transaction
-    @Query("SELECT * from Users WHERE Username Like:username AND Password LIKE:password LIMIT 1")
+    @Query("SELECT * from Users WHERE Username Like:username AND Password LIKE:password AND Active=1 LIMIT 1")
     Optional<UserAndUsertypes> findByUsernameAndPassword(String username, String password);
 
     @Insert
     void insertUser(User user);
+
+    @Query("SELECT * from Users WHERE UserId LIKE:id")
+    User getUserById(int id);
 }

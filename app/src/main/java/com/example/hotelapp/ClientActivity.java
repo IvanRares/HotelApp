@@ -7,10 +7,12 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.hotelapp.entities.User;
 import com.example.hotelapp.fragments.ClientOffersFragment;
 import com.example.hotelapp.fragments.ClientPriceFragment;
 import com.example.hotelapp.fragments.RoomTypesFragment;
@@ -22,12 +24,18 @@ public class ClientActivity extends AppCompatActivity {
     private DrawerLayout dl;
     private ActionBarDrawerToggle t;
     private NavigationView nv;
+    private User currentUser;
+    private AppDatabase db;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client);
+
+        db=AppDatabase.getInstance(this);
+        int userId=getIntent().getExtras().getInt("userId");
+        currentUser=db.userDao().getUserById(userId);
 
         dl = (DrawerLayout) findViewById(R.id.client_activity);
         t = new ActionBarDrawerToggle(this, dl,R.string.Open,R.string.Close);
@@ -71,6 +79,10 @@ public class ClientActivity extends AppCompatActivity {
                                 .setReorderingAllowed(true)
                                 .addToBackStack("name")
                                 .commit();
+                        break;
+                    case R.id.navigation_makeBooking:
+                        Intent i=new Intent(getApplicationContext(),ClientMakeBookingActivity.class);
+                        startActivity(i);
                         break;
                     default:
                         break;

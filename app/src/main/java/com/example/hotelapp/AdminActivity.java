@@ -102,6 +102,7 @@ public class AdminActivity extends AppCompatActivity {
     private void hideItems() {
         Menu navMenu=nv.getMenu();
         navMenu.findItem(R.id.navigation_bookings).setVisible(false);
+        navMenu.findItem(R.id.navigation_makeBooking).setVisible(false);
     }
 
     @Override
