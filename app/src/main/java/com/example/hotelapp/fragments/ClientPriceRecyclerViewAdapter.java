@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hotelapp.EditPriceActivity;
 import com.example.hotelapp.R;
-import com.example.hotelapp.databinding.FragmentAdminPriceItemBinding;
 import com.example.hotelapp.databinding.FragmentClientPriceItemBinding;
 import com.example.hotelapp.pojos.PriceAndRoomTypes;
 

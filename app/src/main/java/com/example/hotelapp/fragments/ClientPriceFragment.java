@@ -56,8 +56,8 @@ public class ClientPriceFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_admin_price_item_list, container, false);
-        RecyclerView recyclerView=view.findViewById(R.id.admin_price_list);
+        View view = inflater.inflate(R.layout.fragment_client_price, container, false);
+        RecyclerView recyclerView=view.findViewById(R.id.client_price_list);
         AppDatabase db=AppDatabase.getInstance(getContext());
         // Set the adapter
         if (recyclerView instanceof RecyclerView) {
