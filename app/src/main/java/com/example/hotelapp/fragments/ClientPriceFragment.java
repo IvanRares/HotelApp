@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 
 import com.example.hotelapp.AppDatabase;
 import com.example.hotelapp.EditOfferActivity;
+import com.example.hotelapp.EditPriceActivity;
 import com.example.hotelapp.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -55,8 +56,8 @@ public class ClientPriceFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_admin_offer_item_list, container, false);
-        RecyclerView recyclerView=view.findViewById(R.id.admin_offer_list);
+        View view = inflater.inflate(R.layout.fragment_admin_price_item_list, container, false);
+        RecyclerView recyclerView=view.findViewById(R.id.admin_price_list);
         AppDatabase db=AppDatabase.getInstance(getContext());
         // Set the adapter
         if (recyclerView instanceof RecyclerView) {
@@ -66,11 +67,10 @@ public class ClientPriceFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            AdminOfferRecyclerViewAdapter adapter=new AdminOfferRecyclerViewAdapter(getContext());
-            db.offerDao().getOffers().observe(getViewLifecycleOwner(),data->adapter.setData(data));
+            ClientPriceRecyclerViewAdapter adapter=new ClientPriceRecyclerViewAdapter(getContext());
+            db.priceDao().getPrices().observe(getViewLifecycleOwner(),data->adapter.setData(data));
             recyclerView.setAdapter(adapter);
         }
-
 
         return view;
     }

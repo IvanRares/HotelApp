@@ -9,25 +9,24 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.hotelapp.EditOfferActivity;
+import com.example.hotelapp.EditPriceActivity;
 import com.example.hotelapp.R;
-import com.example.hotelapp.databinding.FragmentAdminOfferItemBinding;
-import com.example.hotelapp.databinding.FragmentClientOfferItemBinding;
-import com.example.hotelapp.databinding.FragmentClientOffersBinding;
-import com.example.hotelapp.pojos.OfferAndPrices;
+import com.example.hotelapp.databinding.FragmentAdminPriceItemBinding;
+import com.example.hotelapp.databinding.FragmentClientPriceItemBinding;
+import com.example.hotelapp.pojos.PriceAndRoomTypes;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClientOfferRecyclerViewAdapter extends RecyclerView.Adapter<ClientOfferRecyclerViewAdapter.ViewHolder>{
-    private List<OfferAndPrices> mValues = new ArrayList<>();
+public class ClientPriceRecyclerViewAdapter extends RecyclerView.Adapter<ClientPriceRecyclerViewAdapter.ViewHolder>{
+    private List<PriceAndRoomTypes> mValues = new ArrayList<>();
     private final Context mContext;
 
-    public ClientOfferRecyclerViewAdapter(Context context) {
+    public ClientPriceRecyclerViewAdapter(Context context) {
         mContext = context;
     }
 
-    public void setData(List<OfferAndPrices> newData) {
+    public void setData(List<PriceAndRoomTypes> newData) {
         if (mValues != null) {
             mValues.clear();
             mValues.addAll(newData);
@@ -47,39 +46,34 @@ public class ClientOfferRecyclerViewAdapter extends RecyclerView.Adapter<ClientO
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        return new ClientOfferRecyclerViewAdapter.ViewHolder(FragmentClientOfferItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
+        return new ViewHolder(FragmentClientPriceItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
 
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final ClientPriceRecyclerViewAdapter.ViewHolder holder, int position) {
         int rowPos = holder.getBindingAdapterPosition();
         if (rowPos == 0) {
-            setHeaderBg(holder.mOfferName);
             setHeaderBg(holder.mStartDate);
             setHeaderBg(holder.mEndDate);
             setHeaderBg(holder.mPrice);
             setHeaderBg(holder.mRoomType);
 
-            holder.mOfferName.setText("Name");
             holder.mStartDate.setText("Start Date");
             holder.mEndDate.setText("End Date");
             holder.mPrice.setText("Price");
             holder.mRoomType.setText("Room Type");
         } else {
-            setContentBg(holder.mOfferName);
             setContentBg(holder.mStartDate);
             setContentBg(holder.mEndDate);
             setContentBg(holder.mPrice);
             setContentBg(holder.mRoomType);
 
             holder.mItem = mValues.get(position - 1);
-            holder.mOfferName.setText(mValues.get(position - 1).offer.getOfferName());
             holder.mStartDate.setText(mValues.get(position - 1).price.getStartDate());
             holder.mEndDate.setText(mValues.get(position - 1).price.getEndDate());
             holder.mPrice.setText(Float.toString(mValues.get(position - 1).price.getPriceValue()));
             holder.mRoomType.setText(mValues.get(position - 1).roomType.getRoomTypeName());
-
         }
     }
 
@@ -89,25 +83,23 @@ public class ClientOfferRecyclerViewAdapter extends RecyclerView.Adapter<ClientO
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public final TextView mOfferName;
         public final TextView mStartDate;
         public final TextView mEndDate;
         public final TextView mPrice;
         public final TextView mRoomType;
-        public OfferAndPrices mItem;
+        public PriceAndRoomTypes mItem;
 
-        public ViewHolder(FragmentClientOfferItemBinding binding) {
+        public ViewHolder(FragmentClientPriceItemBinding binding) {
             super(binding.getRoot());
-            mOfferName = binding.clientOfferName;
-            mStartDate = binding.clientOfferStartDate;
-            mEndDate = binding.clientOfferEndDate;
-            mPrice = binding.clientOfferPrice;
-            mRoomType = binding.clientOfferRoomType;
+            mStartDate = binding.clientPriceStartDate;
+            mEndDate = binding.clientPriceEndDate;
+            mPrice = binding.clientPricePrice;
+            mRoomType = binding.clientPriceRoomType;
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mOfferName.getText() + "'";
+            return super.toString() + " '" + mPrice.getText() + "'";
         }
     }
 }

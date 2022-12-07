@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.hotelapp.fragments.ClientOffersFragment;
+import com.example.hotelapp.fragments.ClientPriceFragment;
 import com.example.hotelapp.fragments.RoomTypesFragment;
 import com.example.hotelapp.fragments.RoomsFragment;
 import com.google.android.material.navigation.NavigationView;
@@ -61,6 +62,12 @@ public class ClientActivity extends AppCompatActivity {
 
                     case R.id.navigation_rooms:
                         fragmentManager.beginTransaction().replace(R.id.fragmentContainerView2, RoomsFragment.class,null)
+                                .setReorderingAllowed(true)
+                                .addToBackStack("name")
+                                .commit();
+                        break;
+                    case R.id.navigation_prices:
+                        fragmentManager.beginTransaction().replace(R.id.fragmentContainerView2, ClientPriceFragment.class,null)
                                 .setReorderingAllowed(true)
                                 .addToBackStack("name")
                                 .commit();
