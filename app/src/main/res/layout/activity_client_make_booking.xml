@@ -111,6 +111,30 @@
         app:layout_constraintRight_toLeftOf="@id/client_make_booking_right_guideline"
         app:layout_constraintTop_toTopOf="@id/client_make_booking_top_guideline5" />
 
+    <TextView
+        android:id="@+id/client_make_booking_totalPriceRooms"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="@id/client_make_booking_middle_guideline"
+        app:layout_constraintRight_toLeftOf="@id/client_make_booking_right_guideline"
+        app:layout_constraintTop_toTopOf="@id/client_make_booking_top_guideline5" />
+
+    <TextView
+        android:id="@+id/client_make_booking_totalPriceAmenities"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textColor="@color/black"
+        android:visibility="gone"
+        android:textSize="15sp"
+        app:layout_constraintLeft_toLeftOf="@id/client_make_booking_middle_guideline"
+        app:layout_constraintRight_toLeftOf="@id/client_make_booking_right_guideline"
+        app:layout_constraintTop_toTopOf="@id/client_make_booking_top_guideline5" />
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -152,14 +176,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.75" />
+        app:layout_constraintGuide_begin="620dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/client_make_booking_top_guideline6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.85" />
+        app:layout_constraintGuide_begin="650dp"  />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/client_make_booking_left_guideline"

@@ -28,6 +28,12 @@ public interface PriceDao {
             "    and Active = 1 and IsOffer=0")
     LiveData<List<PriceAndRoomTypes>> getPricesByDate(String arrivalDate,String departureDate);
 
+    @Transaction
+    @Query(" select * from Prices\n" +
+            "    where (not(date(EndDate)<date(:arrivalDate) or date(StartDate)>date(:departureDate)))\n" +
+            "    and Active = 1 and IsOffer=0")
+    List<PriceAndRoomTypes> getAllPricesByDate(String arrivalDate,String departureDate);
+
     @Update
     void updatePrice(Price price);
 

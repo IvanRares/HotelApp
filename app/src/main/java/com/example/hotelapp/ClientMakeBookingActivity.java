@@ -6,20 +6,32 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.database.DataSetObserver;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.hotelapp.entities.Amenity;
 import com.example.hotelapp.entities.Room;
 import com.example.hotelapp.entities.RoomType;
+import com.example.hotelapp.pojos.PriceAndRoomTypes;
 import com.example.hotelapp.utils.ListViewCheckbox;
 import com.example.hotelapp.utils.ListViewEditTextAdapter;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -34,6 +46,9 @@ public class ClientMakeBookingActivity extends AppCompatActivity {
     ListViewCheckbox listViewCheckboxAdapter;
     List<RoomType> roomTypeList;
     List<Amenity> amenityList;
+    TextView totalPrice;
+    TextView totalPriceRooms;
+    TextView totalPriceAmenities;
     AppDatabase db;
     int userId;
 
@@ -43,12 +58,48 @@ public class ClientMakeBookingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_client_make_booking);
 
         db = AppDatabase.getInstance(this);
-        roomTypeList=db.roomTypeDao().getAllRoomTypes();
-        amenityList=db.amenityDao().getAllAmenities();
+        roomTypeList = db.roomTypeDao().getAllRoomTypes();
+        amenityList = db.amenityDao().getAllAmenities();
+
+        totalPrice = findViewById(R.id.client_make_booking_totalPrice);
+        totalPriceRooms = findViewById(R.id.client_make_booking_totalPriceRooms);
+        totalPriceRooms.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                updatePrice();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        totalPriceAmenities = findViewById(R.id.client_make_booking_totalPriceAmenities);
+        totalPriceAmenities.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                updatePrice();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
 
         wantedRoomsListView = findViewById(R.id.client_make_booking_availableRoomsList);
-        amenityListView=findViewById(R.id.client_make_booking_amenityList);
-        listViewCheckboxAdapter=new ListViewCheckbox(this,amenityList);
+        amenityListView = findViewById(R.id.client_make_booking_amenityList);
+        listViewCheckboxAdapter = new ListViewCheckbox(this, amenityList, totalPriceAmenities);
         amenityListView.setAdapter(listViewCheckboxAdapter);
 
         initDatePicker(this);
@@ -71,8 +122,17 @@ public class ClientMakeBookingActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        listViewEditTextAdapter=new ListViewEditTextAdapter(this,roomTypeList,dateButton.getText().toString(),endDateButton.getText().toString());
+        listViewEditTextAdapter = new ListViewEditTextAdapter(this, roomTypeList, dateButton.getText().toString(), endDateButton.getText().toString(), totalPriceRooms);
         wantedRoomsListView.setAdapter(listViewEditTextAdapter);
+    }
+
+    private void updatePrice() {
+        float roomsPrice = Float.parseFloat(totalPriceRooms.getText().toString());
+        float amenitiesPrice = Float.parseFloat(totalPriceAmenities.getText().toString());
+        if (roomsPrice == 0)
+            totalPrice.setText("0");
+        else
+            totalPrice.setText(Float.toString(roomsPrice + amenitiesPrice));
     }
 
     @Override
@@ -112,7 +172,7 @@ public class ClientMakeBookingActivity extends AppCompatActivity {
                 endDateButton.setText(sdf.format(calendar.getTime()));
                 endDatePickerDialog.getDatePicker().setMinDate(calendar.getTimeInMillis());
 
-                listViewEditTextAdapter=new ListViewEditTextAdapter(context,roomTypeList,dateButton.getText().toString(),endDateButton.getText().toString());
+                listViewEditTextAdapter = new ListViewEditTextAdapter(context, roomTypeList, dateButton.getText().toString(), endDateButton.getText().toString(), totalPriceRooms);
                 wantedRoomsListView.setAdapter(listViewEditTextAdapter);
 
             }
@@ -129,7 +189,7 @@ public class ClientMakeBookingActivity extends AppCompatActivity {
 
                 endDateButton.setText(sdf.format(calendar.getTime()));
 
-                listViewEditTextAdapter=new ListViewEditTextAdapter(context,roomTypeList,dateButton.getText().toString(),endDateButton.getText().toString());
+                listViewEditTextAdapter = new ListViewEditTextAdapter(context, roomTypeList, dateButton.getText().toString(), endDateButton.getText().toString(), totalPriceRooms);
                 wantedRoomsListView.setAdapter(listViewEditTextAdapter);
 
             }
@@ -143,15 +203,13 @@ public class ClientMakeBookingActivity extends AppCompatActivity {
         int style = AlertDialog.THEME_HOLO_LIGHT;
 
 
-        cal.set(year + 1, month, day);
+        cal.set(year, month, day);
         datePickerDialog = new DatePickerDialog(context, style, dateSetListener, year, month, day);
         endDatePickerDialog = new DatePickerDialog(context, style, endDateSetListener, year, month, day);
         datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
         datePickerDialog.getDatePicker().setMaxDate(cal.getTimeInMillis());
-        cal.set(year + 1, month, day + 1);
+        cal.set(year, month, day + 1);
         endDatePickerDialog.getDatePicker().setMinDate(cal.getTimeInMillis());
-
-
     }
 
     public void openDatePicker(View view) {
