@@ -50,10 +50,18 @@ public class Booking {
     private float totalPrice;
 
     @ColumnInfo(name = "StateId")
-    private int stateId;
+    private int stateId=1;
 
     @ColumnInfo(name = "Active", defaultValue = "1")
     private boolean active=true;
+
+    public Booking(int userId, @NotNull String startDate, @NotNull String endDate, int numberOfRooms, float totalPrice) {
+        this.userId = userId;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.numberOfRooms = numberOfRooms;
+        this.totalPrice = totalPrice;
+    }
 
     public int getBookingId() {
         return BookingId;

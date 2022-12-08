@@ -45,6 +45,10 @@ public class ListViewEditTextAdapter extends BaseAdapter {
         db = AppDatabase.getInstance(context);
     }
 
+    public List<Integer> getWantedRoomList(){
+        return wantedRoomList;
+    }
+
     @Override
     public int getCount() {
         // TODO Auto-generated method stub

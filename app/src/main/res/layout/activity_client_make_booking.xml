@@ -136,6 +136,7 @@
         app:layout_constraintTop_toTopOf="@id/client_make_booking_top_guideline5" />
 
     <Button
+        android:id="@+id/client_make_booking_makeBooking"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Make booking"

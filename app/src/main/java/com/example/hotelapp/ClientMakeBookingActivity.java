@@ -19,6 +19,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.hotelapp.entities.Amenity;
+import com.example.hotelapp.entities.AmenityBooking;
+import com.example.hotelapp.entities.Booking;
+import com.example.hotelapp.entities.BookingRoom;
 import com.example.hotelapp.entities.Room;
 import com.example.hotelapp.entities.RoomType;
 import com.example.hotelapp.pojos.PriceAndRoomTypes;
@@ -31,9 +34,11 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 public class ClientMakeBookingActivity extends AppCompatActivity {
     private DatePickerDialog datePickerDialog;
@@ -49,6 +54,7 @@ public class ClientMakeBookingActivity extends AppCompatActivity {
     TextView totalPrice;
     TextView totalPriceRooms;
     TextView totalPriceAmenities;
+    Button makeBooking;
     AppDatabase db;
     int userId;
 
@@ -97,6 +103,15 @@ public class ClientMakeBookingActivity extends AppCompatActivity {
             }
         });
 
+        userId = getIntent().getExtras().getInt("userId");
+        makeBooking = findViewById(R.id.client_make_booking_makeBooking);
+        makeBooking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createBooking();
+            }
+        });
+
         wantedRoomsListView = findViewById(R.id.client_make_booking_availableRoomsList);
         amenityListView = findViewById(R.id.client_make_booking_amenityList);
         listViewCheckboxAdapter = new ListViewCheckbox(this, amenityList, totalPriceAmenities);
@@ -124,6 +139,31 @@ public class ClientMakeBookingActivity extends AppCompatActivity {
 
         listViewEditTextAdapter = new ListViewEditTextAdapter(this, roomTypeList, dateButton.getText().toString(), endDateButton.getText().toString(), totalPriceRooms);
         wantedRoomsListView.setAdapter(listViewEditTextAdapter);
+    }
+
+    private void createBooking() {
+        String startDate=dateButton.getText().toString();
+        String endDate=dateButton.getText().toString();
+        List<Integer> wantedRoomList = listViewEditTextAdapter.getWantedRoomList();
+        List<Boolean> isCheckedList = listViewCheckboxAdapter.getIsCheckedList();
+        int numberOfRooms=wantedRoomList.stream().mapToInt(Integer::intValue).sum();
+        int bookingId = (int) db.bookingDao().insertBooking(new Booking(userId, startDate, endDate, numberOfRooms,Float.parseFloat(totalPrice.getText().toString())));
+        List<Room> availableRoomsByType=new ArrayList<>();
+        for (int i=0;i<roomTypeList.size();i++) {
+            if(wantedRoomList.get(i)>0) {
+                availableRoomsByType.clear();
+                availableRoomsByType.addAll(db.roomDao().getEmptyRoomsForRoomType(startDate, endDate, roomTypeList.get(i).getRoomTypeId()));
+                Collections.shuffle(availableRoomsByType);
+                for (Room r:availableRoomsByType.stream().limit(wantedRoomList.get(i)).collect(Collectors.toList())) {
+                    db.bookingDao().insertBookingRoom(new BookingRoom(bookingId,r.getRoomId()));
+                }
+            }
+        }
+        for(int i=0;i<amenityList.size();i++){
+            if(isCheckedList.get(i))
+                db.bookingDao().insertAmenityBooking(new AmenityBooking(amenityList.get(i).getAmenityId(),bookingId));
+        }
+        finish();
     }
 
     private void updatePrice() {

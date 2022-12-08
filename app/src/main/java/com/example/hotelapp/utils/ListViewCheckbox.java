@@ -38,6 +38,10 @@ public class ListViewCheckbox extends BaseAdapter {
         db = AppDatabase.getInstance(context);
     }
 
+    public List<Boolean> getIsCheckedList(){
+        return isCheckedList;
+    }
+
     @Override
     public int getCount() {
         // TODO Auto-generated method stub

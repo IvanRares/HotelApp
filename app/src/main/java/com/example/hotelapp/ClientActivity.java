@@ -86,6 +86,7 @@ public class ClientActivity extends AppCompatActivity {
                         break;
                     case R.id.navigation_makeBooking:
                         Intent i = new Intent(getApplicationContext(), ClientMakeBookingActivity.class);
+                        i.putExtra("userId",userId);
                         startActivity(i);
                         break;
                     default:

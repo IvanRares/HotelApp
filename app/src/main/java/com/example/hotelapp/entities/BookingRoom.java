@@ -34,6 +34,11 @@ public class BookingRoom {
     @ColumnInfo(name = "Active", defaultValue = "1")
     private boolean active=true;
 
+    public BookingRoom(int bookingId, int roomId) {
+        this.bookingId = bookingId;
+        this.roomId = roomId;
+    }
+
     public int getBookingRoomId() {
         return BookingRoomId;
     }

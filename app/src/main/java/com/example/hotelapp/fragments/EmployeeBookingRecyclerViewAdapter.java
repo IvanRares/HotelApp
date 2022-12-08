@@ -119,7 +119,7 @@ public class EmployeeBookingRecyclerViewAdapter extends RecyclerView.Adapter<Emp
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return mValues.size()+1;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

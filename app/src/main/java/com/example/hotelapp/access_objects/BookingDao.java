@@ -2,11 +2,14 @@ package com.example.hotelapp.access_objects;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Transaction;
 import androidx.room.Update;
 
+import com.example.hotelapp.entities.AmenityBooking;
 import com.example.hotelapp.entities.Booking;
+import com.example.hotelapp.entities.BookingRoom;
 import com.example.hotelapp.entities.Room;
 import com.example.hotelapp.entities.RoomType;
 import com.example.hotelapp.pojos.BookingsAndUsers;
@@ -29,4 +32,13 @@ public interface BookingDao {
 
     @Update
     void updateBooking(Booking booking);
+
+    @Insert
+    long insertBooking(Booking booking);
+
+    @Insert
+    void insertAmenityBooking(AmenityBooking amenityBooking);
+
+    @Insert
+    void insertBookingRoom(BookingRoom bookingRoom);
 }
