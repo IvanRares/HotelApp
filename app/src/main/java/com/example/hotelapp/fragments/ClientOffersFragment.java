@@ -41,6 +41,7 @@ public class ClientOffersFragment extends Fragment {
     private String startDate;
     private String endDate;
     private View view;
+    private int userId;
 
     public ClientOffersFragment() {
         // Required empty public constructor
@@ -99,7 +100,7 @@ public class ClientOffersFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            ClientOfferRecyclerViewAdapter adapter=new ClientOfferRecyclerViewAdapter(getContext());
+            ClientOfferRecyclerViewAdapter adapter=new ClientOfferRecyclerViewAdapter(getContext(),getArguments().getInt("userId",-1));
             db.offerDao().getOffersByDate(startDate,endDate).observe(getViewLifecycleOwner(),data->adapter.setData(data));
             recyclerView.setAdapter(adapter);
         }
@@ -149,7 +150,7 @@ public class ClientOffersFragment extends Fragment {
 
                 RecyclerView recyclerView=view.findViewById(R.id.client_offers_list);
                 AppDatabase db=AppDatabase.getInstance(getContext());
-                ClientOfferRecyclerViewAdapter adapter=new ClientOfferRecyclerViewAdapter(getContext());
+                ClientOfferRecyclerViewAdapter adapter=new ClientOfferRecyclerViewAdapter(getContext(),getArguments().getInt("userId",-1));
                 db.offerDao().getOffersByDate(startDate,endDate).observe(getViewLifecycleOwner(),data->adapter.setData(data));
                 recyclerView.setAdapter(adapter);
 
@@ -175,7 +176,7 @@ public class ClientOffersFragment extends Fragment {
 
                 RecyclerView recyclerView=view.findViewById(R.id.client_offers_list);
                 AppDatabase db=AppDatabase.getInstance(getContext());
-                ClientOfferRecyclerViewAdapter adapter=new ClientOfferRecyclerViewAdapter(getContext());
+                ClientOfferRecyclerViewAdapter adapter=new ClientOfferRecyclerViewAdapter(getContext(),getArguments().getInt("userId",-1));
                 db.offerDao().getOffersByDate(startDate,endDate).observe(getViewLifecycleOwner(),data->adapter.setData(data));
                 recyclerView.setAdapter(adapter);
             }

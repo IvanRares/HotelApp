@@ -34,6 +34,10 @@ public interface PriceDao {
             "    and Active = 1 and IsOffer=0")
     List<PriceAndRoomTypes> getAllPricesByDate(String arrivalDate,String departureDate);
 
+    @Transaction
+    @Query("SELECT * from Prices WHERE PriceId LIKE:id")
+    List<PriceAndRoomTypes> getPriceAsListById(int id);
+
     @Update
     void updatePrice(Price price);
 

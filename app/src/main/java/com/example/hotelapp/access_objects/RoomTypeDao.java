@@ -22,6 +22,9 @@ public interface RoomTypeDao {
 
     @Query("SELECT * from RoomTypes WHERE Active = 1")
     List<RoomType> getAllRoomTypes();
+
+    @Query("SELECT * from RoomTypes WHERE Active = 1 AND RoomTypeId LIKE:id")
+    List<RoomType> getRoomTypeAsList(int id);
     @Transaction
     @Query("SELECT * from RoomTypes WHERE Active = 1")
     List<RoomTypeAndImage> getRoomTypes();

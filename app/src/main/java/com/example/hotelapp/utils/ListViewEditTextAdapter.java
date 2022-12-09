@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.hotelapp.AppDatabase;
 import com.example.hotelapp.R;
 import com.example.hotelapp.entities.RoomType;
+import com.example.hotelapp.pojos.OfferAndPrices;
 import com.example.hotelapp.pojos.PriceAndRoomTypes;
 
 import java.text.ParseException;
@@ -33,6 +34,7 @@ public class ListViewEditTextAdapter extends BaseAdapter {
     private String endDate;
     private AppDatabase db;
     private TextView totalPriceRooms;
+    private OfferAndPrices offer;
     LayoutInflater mInflater;
 
     public ListViewEditTextAdapter(Context context, List<RoomType> list, String startDate, String endDate, TextView totalPriceRooms) {
@@ -45,7 +47,18 @@ public class ListViewEditTextAdapter extends BaseAdapter {
         db = AppDatabase.getInstance(context);
     }
 
-    public List<Integer> getWantedRoomList(){
+    public ListViewEditTextAdapter(Context context, List<RoomType> list, String startDate, String endDate, TextView totalPriceRooms, OfferAndPrices offer) {
+        this.context = context;
+        this.list = list;
+        wantedRoomList = new ArrayList<>(Collections.nCopies(list.size(), 0));
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.totalPriceRooms = totalPriceRooms;
+        this.offer = offer;
+        db = AppDatabase.getInstance(context);
+    }
+
+    public List<Integer> getWantedRoomList() {
         return wantedRoomList;
     }
 
@@ -69,7 +82,12 @@ public class ListViewEditTextAdapter extends BaseAdapter {
 
     public float calculatePrice() {
         float price = 0;
-        List<PriceAndRoomTypes> priceList = db.priceDao().getAllPricesByDate(startDate, endDate);
+        List<PriceAndRoomTypes> priceList=new ArrayList<>();
+        if (offer == null)
+            priceList = db.priceDao().getAllPricesByDate(startDate, endDate);
+        else{
+            priceList=db.priceDao().getPriceAsListById(offer.price.getPriceId());
+        }
         for (int i = 0; i < list.size(); i++) {
             for (PriceAndRoomTypes p : priceList) {
                 try {

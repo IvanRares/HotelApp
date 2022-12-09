@@ -9,7 +9,9 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.hotelapp.ClientMakeBookingActivity;
 import com.example.hotelapp.EditOfferActivity;
+import com.example.hotelapp.EditRoomTypeActivity;
 import com.example.hotelapp.R;
 import com.example.hotelapp.databinding.FragmentAdminOfferItemBinding;
 import com.example.hotelapp.databinding.FragmentClientOfferItemBinding;
@@ -22,9 +24,11 @@ import java.util.List;
 public class ClientOfferRecyclerViewAdapter extends RecyclerView.Adapter<ClientOfferRecyclerViewAdapter.ViewHolder>{
     private List<OfferAndPrices> mValues = new ArrayList<>();
     private final Context mContext;
+    private final int mUserId;
 
-    public ClientOfferRecyclerViewAdapter(Context context) {
+    public ClientOfferRecyclerViewAdapter(Context context,int userId) {
         mContext = context;
+        mUserId=userId;
     }
 
     public void setData(List<OfferAndPrices> newData) {
@@ -79,7 +83,16 @@ public class ClientOfferRecyclerViewAdapter extends RecyclerView.Adapter<ClientO
             holder.mEndDate.setText(mValues.get(position - 1).price.getEndDate());
             holder.mPrice.setText(Float.toString(mValues.get(position - 1).price.getPriceValue()));
             holder.mRoomType.setText(mValues.get(position - 1).roomType.getRoomTypeName());
-
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i = new Intent(mContext, ClientMakeBookingActivity.class);
+                    i.putExtra("userId", mUserId);
+                    i.putExtra("offerId",holder.mItem.price.getPriceId());
+                    i.putExtra("option","Offer");
+                    mContext.startActivity(i);
+                }
+            });
         }
     }
 

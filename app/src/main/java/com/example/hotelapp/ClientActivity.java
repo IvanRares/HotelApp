@@ -57,9 +57,11 @@ public class ClientActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
                 FragmentManager fragmentManager = getSupportFragmentManager();
+                Bundle args=new Bundle();
+                args.putInt("userId",userId);
                 switch (id) {
                     case R.id.navigation_offers:
-                        fragmentManager.beginTransaction().replace(R.id.fragmentContainerView2, ClientOffersFragment.class, null)
+                        fragmentManager.beginTransaction().replace(R.id.fragmentContainerView2, ClientOffersFragment.class, args)
                                 .setReorderingAllowed(true)
                                 .addToBackStack("name")
                                 .commit();
@@ -87,8 +89,13 @@ public class ClientActivity extends AppCompatActivity {
                     case R.id.navigation_makeBooking:
                         Intent i = new Intent(getApplicationContext(), ClientMakeBookingActivity.class);
                         i.putExtra("userId",userId);
+                        i.putExtra("option","Booking");
                         startActivity(i);
                         break;
+                    case R.id.navigation_logout:
+                        i=new Intent(getApplicationContext(),MainActivity.class);
+                        startActivity(i);
+                        finish();
                     default:
                         break;
 

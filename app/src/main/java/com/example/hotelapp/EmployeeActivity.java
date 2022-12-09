@@ -7,6 +7,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -68,6 +69,10 @@ public class EmployeeActivity extends AppCompatActivity {
                                 .addToBackStack("name")
                                 .commit();
                         break;
+                    case R.id.navigation_logout:
+                        Intent i=new Intent(getApplicationContext(),MainActivity.class);
+                        startActivity(i);
+                        finish();
                     default:
                         break;
 

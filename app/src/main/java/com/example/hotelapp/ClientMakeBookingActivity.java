@@ -24,6 +24,7 @@ import com.example.hotelapp.entities.Booking;
 import com.example.hotelapp.entities.BookingRoom;
 import com.example.hotelapp.entities.Room;
 import com.example.hotelapp.entities.RoomType;
+import com.example.hotelapp.pojos.OfferAndPrices;
 import com.example.hotelapp.pojos.PriceAndRoomTypes;
 import com.example.hotelapp.utils.ListViewCheckbox;
 import com.example.hotelapp.utils.ListViewEditTextAdapter;
@@ -56,7 +57,10 @@ public class ClientMakeBookingActivity extends AppCompatActivity {
     TextView totalPriceAmenities;
     Button makeBooking;
     AppDatabase db;
+    String option;
     int userId;
+    int offerId;
+    OfferAndPrices offer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +68,6 @@ public class ClientMakeBookingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_client_make_booking);
 
         db = AppDatabase.getInstance(this);
-        roomTypeList = db.roomTypeDao().getAllRoomTypes();
         amenityList = db.amenityDao().getAllAmenities();
 
         totalPrice = findViewById(R.id.client_make_booking_totalPrice);
@@ -104,6 +107,7 @@ public class ClientMakeBookingActivity extends AppCompatActivity {
         });
 
         userId = getIntent().getExtras().getInt("userId");
+        option = getIntent().getExtras().getString("option");
         makeBooking = findViewById(R.id.client_make_booking_makeBooking);
         makeBooking.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,11 +115,13 @@ public class ClientMakeBookingActivity extends AppCompatActivity {
                 createBooking();
             }
         });
-
         wantedRoomsListView = findViewById(R.id.client_make_booking_availableRoomsList);
         amenityListView = findViewById(R.id.client_make_booking_amenityList);
-        listViewCheckboxAdapter = new ListViewCheckbox(this, amenityList, totalPriceAmenities);
-        amenityListView.setAdapter(listViewCheckboxAdapter);
+
+        if(option.equals("Offer")){
+            offerId = getIntent().getExtras().getInt("offerId");
+            offer = db.offerDao().getOfferById(offerId);
+        }
 
         initDatePicker(this);
         dateButton = findViewById(R.id.client_make_booking_datePickerButton);
@@ -134,34 +140,44 @@ public class ClientMakeBookingActivity extends AppCompatActivity {
                 openEndDatePicker(v);
             }
         });
+        if (option.equals("Booking")) {
+            roomTypeList = db.roomTypeDao().getAllRoomTypes();
+            listViewEditTextAdapter = new ListViewEditTextAdapter(this, roomTypeList, dateButton.getText().toString(), endDateButton.getText().toString(), totalPriceRooms);
+        } else {
+            roomTypeList = db.roomTypeDao().getRoomTypeAsList(offer.roomType.getRoomTypeId());
+            listViewEditTextAdapter = new ListViewEditTextAdapter(this, roomTypeList, dateButton.getText().toString(), endDateButton.getText().toString(), totalPriceRooms, offer);
+        }
+
+        listViewCheckboxAdapter = new ListViewCheckbox(this, amenityList, totalPriceAmenities);
+        amenityListView.setAdapter(listViewCheckboxAdapter);
+
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        listViewEditTextAdapter = new ListViewEditTextAdapter(this, roomTypeList, dateButton.getText().toString(), endDateButton.getText().toString(), totalPriceRooms);
         wantedRoomsListView.setAdapter(listViewEditTextAdapter);
     }
 
     private void createBooking() {
-        String startDate=dateButton.getText().toString();
-        String endDate=dateButton.getText().toString();
+        String startDate = dateButton.getText().toString();
+        String endDate = endDateButton.getText().toString();
         List<Integer> wantedRoomList = listViewEditTextAdapter.getWantedRoomList();
         List<Boolean> isCheckedList = listViewCheckboxAdapter.getIsCheckedList();
-        int numberOfRooms=wantedRoomList.stream().mapToInt(Integer::intValue).sum();
-        int bookingId = (int) db.bookingDao().insertBooking(new Booking(userId, startDate, endDate, numberOfRooms,Float.parseFloat(totalPrice.getText().toString())));
-        List<Room> availableRoomsByType=new ArrayList<>();
-        for (int i=0;i<roomTypeList.size();i++) {
-            if(wantedRoomList.get(i)>0) {
+        int numberOfRooms = wantedRoomList.stream().mapToInt(Integer::intValue).sum();
+        int bookingId = (int) db.bookingDao().insertBooking(new Booking(userId, startDate, endDate, numberOfRooms, Float.parseFloat(totalPrice.getText().toString())));
+        List<Room> availableRoomsByType = new ArrayList<>();
+        for (int i = 0; i < roomTypeList.size(); i++) {
+            if (wantedRoomList.get(i) > 0) {
                 availableRoomsByType.clear();
                 availableRoomsByType.addAll(db.roomDao().getEmptyRoomsForRoomType(startDate, endDate, roomTypeList.get(i).getRoomTypeId()));
                 Collections.shuffle(availableRoomsByType);
-                for (Room r:availableRoomsByType.stream().limit(wantedRoomList.get(i)).collect(Collectors.toList())) {
-                    db.bookingDao().insertBookingRoom(new BookingRoom(bookingId,r.getRoomId()));
+                for (Room r : availableRoomsByType.stream().limit(wantedRoomList.get(i)).collect(Collectors.toList())) {
+                    db.bookingDao().insertBookingRoom(new BookingRoom(bookingId, r.getRoomId()));
                 }
             }
         }
-        for(int i=0;i<amenityList.size();i++){
-            if(isCheckedList.get(i))
-                db.bookingDao().insertAmenityBooking(new AmenityBooking(amenityList.get(i).getAmenityId(),bookingId));
+        for (int i = 0; i < amenityList.size(); i++) {
+            if (isCheckedList.get(i))
+                db.bookingDao().insertAmenityBooking(new AmenityBooking(amenityList.get(i).getAmenityId(), bookingId));
         }
         finish();
     }
@@ -212,7 +228,10 @@ public class ClientMakeBookingActivity extends AppCompatActivity {
                 endDateButton.setText(sdf.format(calendar.getTime()));
                 endDatePickerDialog.getDatePicker().setMinDate(calendar.getTimeInMillis());
 
-                listViewEditTextAdapter = new ListViewEditTextAdapter(context, roomTypeList, dateButton.getText().toString(), endDateButton.getText().toString(), totalPriceRooms);
+                if (option.equals("Booking"))
+                    listViewEditTextAdapter = new ListViewEditTextAdapter(context, roomTypeList, dateButton.getText().toString(), endDateButton.getText().toString(), totalPriceRooms);
+                else
+                    listViewEditTextAdapter = new ListViewEditTextAdapter(context, roomTypeList, dateButton.getText().toString(), endDateButton.getText().toString(), totalPriceRooms, offer);
                 wantedRoomsListView.setAdapter(listViewEditTextAdapter);
 
             }
@@ -229,12 +248,14 @@ public class ClientMakeBookingActivity extends AppCompatActivity {
 
                 endDateButton.setText(sdf.format(calendar.getTime()));
 
-                listViewEditTextAdapter = new ListViewEditTextAdapter(context, roomTypeList, dateButton.getText().toString(), endDateButton.getText().toString(), totalPriceRooms);
+                if (option.equals("Booking"))
+                    listViewEditTextAdapter = new ListViewEditTextAdapter(context, roomTypeList, dateButton.getText().toString(), endDateButton.getText().toString(), totalPriceRooms);
+                else
+                    listViewEditTextAdapter = new ListViewEditTextAdapter(context, roomTypeList, dateButton.getText().toString(), endDateButton.getText().toString(), totalPriceRooms, offer);
                 wantedRoomsListView.setAdapter(listViewEditTextAdapter);
 
             }
         };
-
         Calendar cal = Calendar.getInstance();
         int year = cal.get(Calendar.YEAR);
         int month = cal.get(Calendar.MONTH);
@@ -242,14 +263,33 @@ public class ClientMakeBookingActivity extends AppCompatActivity {
 
         int style = AlertDialog.THEME_HOLO_LIGHT;
 
+        if (option.equals("Booking")) {
 
-        cal.set(year, month, day);
-        datePickerDialog = new DatePickerDialog(context, style, dateSetListener, year, month, day);
-        endDatePickerDialog = new DatePickerDialog(context, style, endDateSetListener, year, month, day);
-        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
-        datePickerDialog.getDatePicker().setMaxDate(cal.getTimeInMillis());
-        cal.set(year, month, day + 1);
-        endDatePickerDialog.getDatePicker().setMinDate(cal.getTimeInMillis());
+            cal.set(year, month, day);
+            datePickerDialog = new DatePickerDialog(context, style, dateSetListener, year, month, day);
+            endDatePickerDialog = new DatePickerDialog(context, style, endDateSetListener, year, month, day);
+            datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+            cal.set(year, month, day + 1);
+            endDatePickerDialog.getDatePicker().setMinDate(cal.getTimeInMillis());
+        } else {
+
+            String format = "yyyy-MM-dd";
+            SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.ENGLISH);
+
+            cal.set(year, month, day);
+            datePickerDialog = new DatePickerDialog(context, style, dateSetListener, year, month, day);
+            endDatePickerDialog = new DatePickerDialog(context, style, endDateSetListener, year, month, day);
+            datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+            cal.set(year, month, day + 1);
+            endDatePickerDialog.getDatePicker().setMinDate(cal.getTimeInMillis());
+            try {
+                Date date = sdf.parse(offer.price.getEndDate());
+                cal.setTime(date);
+                endDatePickerDialog.getDatePicker().setMaxDate(cal.getTimeInMillis());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void openDatePicker(View view) {

@@ -38,7 +38,7 @@
 
     <com.example.hotelapp.utils.ListViewFitHeight
         android:id="@+id/employee_booking_roomList"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content" />
 
     <TextView
