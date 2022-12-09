@@ -23,6 +23,10 @@ public interface BookingDao {
     @Query("SELECT * from Bookings WHERE Active=1")
     LiveData<List<BookingsAndUsers>> getBookings();
 
+    @Transaction
+    @Query("SELECT * from Bookings WHERE Active=1 AND UserId LIKE:id")
+    LiveData<List<BookingsAndUsers>> getBookingsByUserId(int id);
+
     @Query("SELECT * from Rooms JOIN BookingRooms ON BookingRooms.RoomId=Rooms.RoomId WHERE BookingId LIKE:id")
     List<Room> getRoomsByBooking(int id);
 

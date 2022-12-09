@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.hotelapp.entities.User;
+import com.example.hotelapp.fragments.ClientBookingFragment;
 import com.example.hotelapp.fragments.ClientOffersFragment;
 import com.example.hotelapp.fragments.ClientPriceFragment;
 import com.example.hotelapp.fragments.RoomTypesFragment;
@@ -96,6 +97,11 @@ public class ClientActivity extends AppCompatActivity {
                         i=new Intent(getApplicationContext(),MainActivity.class);
                         startActivity(i);
                         finish();
+                    case R.id.navigation_bookings:
+                        fragmentManager.beginTransaction().replace(R.id.fragmentContainerView2, ClientBookingFragment.class, args)
+                                .setReorderingAllowed(true)
+                                .addToBackStack("name")
+                                .commit();
                     default:
                         break;
 
