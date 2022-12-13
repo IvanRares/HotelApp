@@ -1,5 +1,6 @@
 package com.example.hotelapp;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -28,21 +29,40 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
         db = AppDatabase.getInstance(getApplicationContext());
         button = findViewById(R.id.loginOrRegisterButton);
         usernameInput = findViewById(R.id.editTextUsername);
         passwordInput = findViewById(R.id.editTextTextPassword);
         String loginType = getIntent().getExtras().getString("TYPE_OF_LOGIN");
+        if(loginType.toLowerCase(Locale.ROOT).equals("login"))
+            actionBar.setTitle("Login");
+        else
+            actionBar.setTitle("Register");
         button.setText(loginType);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (loginType.toLowerCase(Locale.ROOT).equals("login"))
+                if (loginType.toLowerCase(Locale.ROOT).equals("login")) {
                     Login();
-                else
+                    actionBar.setTitle("Login");
+                }
+
+                else {
                     Register();
+                    actionBar.setTitle("Register");
+                }
             }
         });
+    }
+
+    @Override
+    public boolean onSupportNavigateUp(){
+        Intent i =new Intent(getApplicationContext(),MainActivity.class);
+        startActivity(i);
+        finish();
+        return true;
     }
 
     private void Login() {

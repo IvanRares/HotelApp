@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         registerButton=findViewById(R.id.register);
         loginButton = findViewById(R.id.login);
         clientButton = findViewById(R.id.guest);
+        getSupportActionBar().setTitle("Home");
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
