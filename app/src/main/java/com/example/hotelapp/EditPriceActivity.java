@@ -66,6 +66,7 @@ public class EditPriceActivity extends AppCompatActivity {
             }
         });
         ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Edit Prices");
         actionBar.setDisplayHomeAsUpEnabled(true);
         option = getIntent().getExtras().getString("Option");
         db = AppDatabase.getInstance(getApplicationContext());

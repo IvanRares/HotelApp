@@ -34,6 +34,7 @@ public class EmployeeActivity extends AppCompatActivity {
         t.syncState();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Rooms");
 
         nv = (NavigationView) findViewById(R.id.nv);
         hideItems();
@@ -48,6 +49,7 @@ public class EmployeeActivity extends AppCompatActivity {
                                 .setReorderingAllowed(true)
                                 .addToBackStack("name")
                                 .commit();
+                        getSupportActionBar().setTitle("Offers");
                         break;
 
                     case R.id.navigation_roomTypes:
@@ -55,6 +57,7 @@ public class EmployeeActivity extends AppCompatActivity {
                                 .setReorderingAllowed(true)
                                 .addToBackStack("name")
                                 .commit();
+                        getSupportActionBar().setTitle("Room Types");
                         break;
 
                     case R.id.navigation_rooms:
@@ -62,12 +65,14 @@ public class EmployeeActivity extends AppCompatActivity {
                                 .setReorderingAllowed(true)
                                 .addToBackStack("name")
                                 .commit();
+                        getSupportActionBar().setTitle("Rooms");
                         break;
                     case R.id.navigation_bookings:
                         fragmentManager.beginTransaction().replace(R.id.fragmentContainerView2, EmployeeBookingFragment.class, null)
                                 .setReorderingAllowed(true)
                                 .addToBackStack("name")
                                 .commit();
+                        getSupportActionBar().setTitle("Bookings");
                         break;
                     case R.id.navigation_logout:
                         Intent i=new Intent(getApplicationContext(),MainActivity.class);
@@ -100,5 +105,9 @@ public class EmployeeActivity extends AppCompatActivity {
             return true;
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void setActionBarTitle(String title){
+        getSupportActionBar().setTitle(title);
     }
 }

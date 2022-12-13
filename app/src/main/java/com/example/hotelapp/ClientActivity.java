@@ -32,10 +32,14 @@ public class ClientActivity extends AppCompatActivity {
     private int userId;
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client);
+
+
 
         db = AppDatabase.getInstance(this);
         if(getIntent().getExtras()!=null) {
@@ -50,7 +54,7 @@ public class ClientActivity extends AppCompatActivity {
         t.syncState();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        getSupportActionBar().setTitle("Rooms");
         nv = (NavigationView) findViewById(R.id.nv);
         hideItems();
         nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -66,6 +70,7 @@ public class ClientActivity extends AppCompatActivity {
                                 .setReorderingAllowed(true)
                                 .addToBackStack("name")
                                 .commit();
+                        getSupportActionBar().setTitle("Offers");
                         break;
 
                     case R.id.navigation_roomTypes:
@@ -73,6 +78,7 @@ public class ClientActivity extends AppCompatActivity {
                                 .setReorderingAllowed(true)
                                 .addToBackStack("name")
                                 .commit();
+                        getSupportActionBar().setTitle("Room Types");
                         break;
 
                     case R.id.navigation_rooms:
@@ -80,18 +86,21 @@ public class ClientActivity extends AppCompatActivity {
                                 .setReorderingAllowed(true)
                                 .addToBackStack("name")
                                 .commit();
+                        getSupportActionBar().setTitle("Rooms");
                         break;
                     case R.id.navigation_prices:
                         fragmentManager.beginTransaction().replace(R.id.fragmentContainerView2, ClientPriceFragment.class, null)
                                 .setReorderingAllowed(true)
                                 .addToBackStack("name")
                                 .commit();
+                        getSupportActionBar().setTitle("Prices");
                         break;
                     case R.id.navigation_makeBooking:
                         Intent i = new Intent(getApplicationContext(), ClientMakeBookingActivity.class);
                         i.putExtra("userId",userId);
                         i.putExtra("option","Booking");
                         startActivity(i);
+                        getSupportActionBar().setTitle("Book");
                         break;
                     case R.id.navigation_logout:
                         i=new Intent(getApplicationContext(),MainActivity.class);
@@ -102,6 +111,7 @@ public class ClientActivity extends AppCompatActivity {
                                 .setReorderingAllowed(true)
                                 .addToBackStack("name")
                                 .commit();
+                        getSupportActionBar().setTitle("Bookings");
                     default:
                         break;
 
@@ -111,6 +121,7 @@ public class ClientActivity extends AppCompatActivity {
 
 
             }
+
         });
 
     }
@@ -132,5 +143,9 @@ public class ClientActivity extends AppCompatActivity {
             return true;
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void setActionBarTitle(String title){
+        getSupportActionBar().setTitle(title);
     }
 }

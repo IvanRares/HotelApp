@@ -22,6 +22,7 @@ public class EditRoomTypeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_room_type);
         ActionBar actionBar=getSupportActionBar();
+        actionBar.setTitle("Edit room types");
         actionBar.setDisplayHomeAsUpEnabled(true);
         db = AppDatabase.getInstance(getApplicationContext());
         description=findViewById(R.id.edit_room_type_description);

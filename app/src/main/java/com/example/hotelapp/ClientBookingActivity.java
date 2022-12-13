@@ -31,6 +31,7 @@ public class ClientBookingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActionBar actionBar=getSupportActionBar();
+        actionBar.setTitle("Booking");
         actionBar.setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_client_booking);
         username=findViewById(R.id.client_booking_usernameData);
@@ -41,7 +42,6 @@ public class ClientBookingActivity extends AppCompatActivity {
         db=AppDatabase.getInstance(getApplicationContext());
         bookingId=getIntent().getExtras().getInt("bookingId");
         item=db.bookingDao().getBookingById(bookingId);
-
         username.setText(item.user.getUsername());
         startDate.setText(item.booking.getStartDate());
         endDate.setText(item.booking.getEndDate());

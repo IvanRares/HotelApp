@@ -71,6 +71,7 @@ public class EditImageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_image);
         ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Edit Images");
         actionBar.setDisplayHomeAsUpEnabled(true);
         option = getIntent().getExtras().getString("Option");
         db = AppDatabase.getInstance(getApplicationContext());

@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.hotelapp.AppDatabase;
+import com.example.hotelapp.ClientActivity;
 import com.example.hotelapp.R;
 import com.example.hotelapp.fragments.placeholder.PlaceholderContent;
 
@@ -55,6 +56,7 @@ public class ClientBookingFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        ((ClientActivity)getActivity()).setActionBarTitle("Booking");
         View view = inflater.inflate(R.layout.fragment_client_booking_item_list, container, false);
         RecyclerView recyclerView=view.findViewById(R.id.client_booking_list);
         AppDatabase db=AppDatabase.getInstance(getContext());
