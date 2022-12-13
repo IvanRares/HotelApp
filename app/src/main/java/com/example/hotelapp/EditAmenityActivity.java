@@ -29,6 +29,7 @@ public class EditAmenityActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_amenity);
         ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Edit Amenity");
         actionBar.setDisplayHomeAsUpEnabled(true);
         option = getIntent().getExtras().getString("Option");
         db = AppDatabase.getInstance(getApplicationContext());

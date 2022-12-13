@@ -66,7 +66,9 @@ public class EditOfferActivity extends AppCompatActivity {
             }
         });
         ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Edit Offers");
         actionBar.setDisplayHomeAsUpEnabled(true);
+
         option = getIntent().getExtras().getString("Option");
         db = AppDatabase.getInstance(getApplicationContext());
         roomTypeList = db.roomTypeDao().getAllRoomTypes();

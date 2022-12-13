@@ -152,6 +152,7 @@ public class ClientMakeBookingActivity extends AppCompatActivity {
         amenityListView.setAdapter(listViewCheckboxAdapter);
 
         ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Booking");
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         wantedRoomsListView.setAdapter(listViewEditTextAdapter);

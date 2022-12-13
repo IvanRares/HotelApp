@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.hotelapp.AppDatabase;
+import com.example.hotelapp.ClientActivity;
 import com.example.hotelapp.R;
 import com.example.hotelapp.pojos.RoomAndRoomTypes;
 import com.example.hotelapp.pojos.RoomTypeAndImage;

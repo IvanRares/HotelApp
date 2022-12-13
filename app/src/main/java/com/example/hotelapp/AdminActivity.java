@@ -118,4 +118,7 @@ public class AdminActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+    public void setActionBarTitle(String title){
+        getSupportActionBar().setTitle(title);
+    }
 }

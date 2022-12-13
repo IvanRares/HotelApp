@@ -37,7 +37,9 @@ public class EditRoomActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_room);
+
         ActionBar actionBar=getSupportActionBar();
+        actionBar.setTitle("Edit Rooms");
         actionBar.setDisplayHomeAsUpEnabled(true);
         option = getIntent().getExtras().getString("Option");
         db = AppDatabase.getInstance(getApplicationContext());

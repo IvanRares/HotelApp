@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 
 import com.example.hotelapp.AppDatabase;
+import com.example.hotelapp.ClientActivity;
 import com.example.hotelapp.R;
 
 import java.text.SimpleDateFormat;

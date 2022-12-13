@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.hotelapp.AdminActivity;
 import com.example.hotelapp.AppDatabase;
 import com.example.hotelapp.R;
 import com.example.hotelapp.fragments.placeholder.PlaceholderContent;
@@ -55,6 +56,7 @@ public class AdminRoomTypesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        ((AdminActivity)getActivity()).setActionBarTitle("Room Types");
         View view = inflater.inflate(R.layout.fragment_admin_room_type_item_list, container, false);
 
         RecyclerView recyclerView=view.findViewById(R.id.admin_room_type_list);

@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 
 import com.example.hotelapp.AppDatabase;
+import com.example.hotelapp.ClientActivity;
 import com.example.hotelapp.EditOfferActivity;
 import com.example.hotelapp.EditPriceActivity;
 import com.example.hotelapp.R;
@@ -73,6 +74,7 @@ public class ClientPriceFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        ((ClientActivity)getActivity()).setActionBarTitle("Prices");
         view = inflater.inflate(R.layout.fragment_client_price, container, false);
         initDatePicker(view.getContext());
         RecyclerView recyclerView=view.findViewById(R.id.client_price_list);

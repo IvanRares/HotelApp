@@ -17,6 +17,8 @@ import android.widget.Button;
 import android.widget.DatePicker;
 
 import com.example.hotelapp.AppDatabase;
+import com.example.hotelapp.ClientActivity;
+import com.example.hotelapp.EmployeeActivity;
 import com.example.hotelapp.R;
 import com.example.hotelapp.entities.RoomType;
 import com.example.hotelapp.pojos.RoomTypeAndImage;
@@ -60,6 +62,7 @@ public class RoomsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
         if (getArguments() != null) {
 
