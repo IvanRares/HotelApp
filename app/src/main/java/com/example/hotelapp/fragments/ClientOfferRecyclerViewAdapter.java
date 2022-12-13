@@ -86,11 +86,13 @@ public class ClientOfferRecyclerViewAdapter extends RecyclerView.Adapter<ClientO
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent i = new Intent(mContext, ClientMakeBookingActivity.class);
-                    i.putExtra("userId", mUserId);
-                    i.putExtra("offerId",holder.mItem.price.getPriceId());
-                    i.putExtra("option","Offer");
-                    mContext.startActivity(i);
+                    if(mUserId!=-1) {
+                        Intent i = new Intent(mContext, ClientMakeBookingActivity.class);
+                        i.putExtra("userId", mUserId);
+                        i.putExtra("offerId", holder.mItem.price.getPriceId());
+                        i.putExtra("option", "Offer");
+                        mContext.startActivity(i);
+                    }
                 }
             });
         }
