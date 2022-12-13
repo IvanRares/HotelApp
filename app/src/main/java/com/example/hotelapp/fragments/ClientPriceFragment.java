@@ -74,7 +74,6 @@ public class ClientPriceFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        ((ClientActivity)getActivity()).setActionBarTitle("Prices");
         view = inflater.inflate(R.layout.fragment_client_price, container, false);
         initDatePicker(view.getContext());
         RecyclerView recyclerView=view.findViewById(R.id.client_price_list);

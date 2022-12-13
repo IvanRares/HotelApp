@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.hotelapp.fragments.ClientPriceFragment;
 import com.example.hotelapp.fragments.EmployeeBookingFragment;
 import com.example.hotelapp.fragments.ClientOffersFragment;
 import com.example.hotelapp.fragments.RoomTypesFragment;
@@ -73,6 +74,13 @@ public class EmployeeActivity extends AppCompatActivity {
                                 .addToBackStack("name")
                                 .commit();
                         getSupportActionBar().setTitle("Bookings");
+                        break;
+                    case R.id.navigation_prices:
+                        fragmentManager.beginTransaction().replace(R.id.fragmentContainerView2, ClientPriceFragment.class, null)
+                                .setReorderingAllowed(true)
+                                .addToBackStack("name")
+                                .commit();
+                        getSupportActionBar().setTitle("Prices");
                         break;
                     case R.id.navigation_logout:
                         Intent i=new Intent(getApplicationContext(),MainActivity.class);
