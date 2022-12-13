@@ -29,7 +29,7 @@ public class ClientActivity extends AppCompatActivity {
     private NavigationView nv;
     private User currentUser;
     private AppDatabase db;
-    private int userId;
+    private int userId=-1;
 
 
 
