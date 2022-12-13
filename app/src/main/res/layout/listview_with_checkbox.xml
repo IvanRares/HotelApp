@@ -7,17 +7,15 @@
 
     <TextView
         android:id="@+id/list_view_adapter_amenityName"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="RoomType"
-        android:layout_marginEnd="50dp"/>
+        android:text="RoomType"/>
 
     <TextView
         android:id="@+id/list_view_adapter_amenityPrice"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:text="Num"
-        android:layout_marginEnd="50dp"/>
+        android:text="Num"/>
 
     <CheckBox
         android:id="@+id/list_view_adapter_checked"

@@ -73,7 +73,7 @@
 
     <HorizontalScrollView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="250dp"
         app:layout_constraintLeft_toLeftOf="@id/client_make_booking_left_guideline"
         app:layout_constraintRight_toLeftOf="@id/client_make_booking_right_guideline"
         app:layout_constraintTop_toTopOf="@id/client_make_booking_top_guideline4">
